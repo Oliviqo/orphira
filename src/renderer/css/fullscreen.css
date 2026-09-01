@@ -191,7 +191,6 @@
   will-change: left, width;
   transition: left 0.45s cubic-bezier(0.16, 1, 0.3, 1),
               width 0.45s cubic-bezier(0.16, 1, 0.3, 1);
-  -webkit-app-region: no-drag;
 }
 
 /* СОСТОЯНИЕ БЕЗ ТЕКСТА: СТРОГО В ЦЕНТРЕ ЭКРАНА (50%) */

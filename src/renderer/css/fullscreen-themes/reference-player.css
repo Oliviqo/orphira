@@ -46,7 +46,7 @@
   position: absolute;
   inset: 0;
   opacity: 0;
-  will-change: opacity;
+  pointer-events: none !important;
 }
 
 .reference-bg-layer.active {
@@ -135,9 +135,9 @@
 
 .fullscreen-overlay.fullscreen-theme-reference .fullscreen-player-box {
   position: absolute;
-  inset: 0;
+  inset: 60px 0 0 0;
   width: 100%;
-  height: 100%;
+  height: calc(100% - 60px);
   max-width: none;
   display: block;
   transform: none;
@@ -175,7 +175,7 @@
 .fullscreen-overlay.fullscreen-theme-reference .fullscreen-cover::before,
 .fullscreen-overlay.fullscreen-theme-reference .fullscreen-cover::after {
   content: none !important;
-  display: none !important;
+
 }
 
 .fullscreen-overlay.fullscreen-theme-reference .fullscreen-cover:hover {
@@ -728,17 +728,6 @@ body .fullscreen-overlay.fullscreen-theme-reference #fs-btn-repeat:active {
  padding-bottom: 0;
 }
 
-.fullscreen-overlay.fullscreen-theme-reference .fullscreen-drag-bar {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 160px;
-  height: 60px;
-  z-index: 1000005;
-  pointer-events: auto !important;
-  -webkit-app-region: drag !important;
-  -webkit-user-select: none;
-}
 .fullscreen-overlay.fullscreen-theme-reference .fullscreen-window-controls {
   z-index: 1000006;
   -webkit-app-region: no-drag !important;
@@ -830,4 +819,28 @@ body .fullscreen-overlay.fullscreen-theme-reference #fs-btn-repeat:active {
  .karaoke-line.active {
  color: #ffffff !important;
  text-shadow: none !important;
+}
+
+/* ==========================================================================
+   ELECTRON DRAG FIX
+   ========================================================================== */
+
+/*
+ * В базовой теме player-box имеет -webkit-app-region: no-drag.
+ * В Reference player-box растянут на весь экран, поэтому он блокировал
+ * draggable titlebar.
+ */
+.fullscreen-overlay.fullscreen-theme-reference .fullscreen-player-box {
+    -webkit-app-region: none !important;
+}
+
+.fullscreen-overlay.fullscreen-theme-reference > .fullscreen-drag-bar {
+    -webkit-app-region: drag !important;
+}
+
+.fullscreen-overlay.fullscreen-theme-reference > .fullscreen-window-controls,
+.fullscreen-overlay.fullscreen-theme-reference > .fullscreen-window-controls *,
+.fullscreen-overlay.fullscreen-theme-reference > .fullscreen-close-btn,
+.fullscreen-overlay.fullscreen-theme-reference > .fullscreen-close-btn * {
+    -webkit-app-region: no-drag !important;
 }
