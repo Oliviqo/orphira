@@ -132,19 +132,19 @@
         }
       ]
     },
-    "linux": {
-      "category": "Audio;AudioVideo",
-      "target": [
-        {
-          "target": "AppImage",
-          "arch": [
-            "x64",
-            "arm64"
-          ]
-        }
+"linux": {
+  "icon": null,
+  "category": "Audio;AudioVideo",
+  "target": [
+    {
+      "target": "AppImage",
+      "arch": [
+        "x64",
+        "arm64"
       ]
     }
-  },
+  ]
+}
   "dependencies": {
     "chokidar": "^3.6.0",
     "electron-log": "^5.0.0",
