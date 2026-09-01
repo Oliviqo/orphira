@@ -1,0 +1,412 @@
+/* ==========================================================================
+   COSMIC PLAYER - DAWN LIGHT THEME
+   Тема оформления: Светлый Рассвет (Modern Windows Light - Coral Orange)
+   ========================================================================== */
+[data-theme="light"] {
+  /* Базовые цвета светлой палитры */
+  --bg-gradient: linear-gradient(145deg, #f8fafc 0%, #f1f5f9 50%, #e2e8f0 100%);
+  --glass-bg: rgba(255, 255, 255, 0.72);
+  --glass-border: rgba(0, 0, 0, 0.08);
+  --glass-hover: rgba(0, 0, 0, 0.05);
+  --glass-card: rgba(255, 255, 255, 0.82);
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #94a3b8;
+  --accent-pink: #ff7a45;
+  --accent-cyan: #ff9a6b;
+  --accent-purple: #ff6b52;
+  --accent-amber: #ffb088;
+  --accent-gradient: linear-gradient(135deg, #ff5e36 0%, #ff7a45 50%, #ff9a6b 100%);
+  --accent-glow: rgba(255, 122, 69, 0.22);
+  --modal-bg: rgba(15, 23, 42, 0.45);
+}
+
+/* 1. Градиентные амбиентные пятна для светлой темы */
+[data-theme="light"] body::before {
+  background: radial-gradient(
+    circle,
+    rgba(255, 122, 69, 0.08) 0%,
+    rgba(255, 154, 107, 0.04) 40%,
+    transparent 75%
+  ) !important;
+}
+[data-theme="light"] body::after {
+  background: radial-gradient(
+    circle,
+    rgba(255, 107, 82, 0.07) 0%,
+    rgba(255, 122, 69, 0.04) 45%,
+    transparent 80%
+  ) !important;
+}
+
+/* 2. Звездное небо в светлом режиме */
+[data-theme="light"] .stars-canvas {
+  opacity: 0.25 !important;
+  mix-blend-mode: multiply !important;
+}
+
+/* 3. Верхняя шапка (Titlebar) и поиск */
+[data-theme="light"] .titlebar {
+  background: rgba(255, 255, 255, 0.65) !important;
+  border-bottom: 1px solid var(--glass-border) !important;
+}
+[data-theme="light"] .titlebar-title {
+  background: linear-gradient(135deg, #0f172a 0%, #334155 60%, #ff7a45 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+[data-theme="light"] .search-container {
+  background: rgba(255, 255, 255, 0.85) !important;
+  border: 1px solid rgba(0, 0, 0, 0.12) !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04) !important;
+}
+[data-theme="light"] .search-container:focus-within {
+  background: #ffffff !important;
+  border-color: #ff7a45 !important;
+  box-shadow: 0 0 12px rgba(255, 122, 69, 0.2) !important;
+}
+[data-theme="light"] .search-input {
+  color: #0f172a !important;
+}
+[data-theme="light"] .window-btn {
+  color: #475569 !important;
+}
+[data-theme="light"] .window-btn:hover {
+  color: #0f172a !important;
+}
+
+/* 4. Левый сайдбар и навигация */
+[data-theme="light"] .sidebar {
+  background: var(--glass-card) !important;
+  border: none !important;
+  border-right: 1px solid var(--glass-border) !important;
+  box-shadow: none !important;
+}
+[data-theme="light"] .nav-item {
+  color: #475569 !important;
+}
+[data-theme="light"] .nav-item:hover {
+  background: rgba(0, 0, 0, 0.04) !important;
+  color: #0f172a !important;
+}
+[data-theme="light"] .nav-item.active {
+  background: linear-gradient(135deg, rgba(255, 122, 69, 0.15) 0%, rgba(255, 122, 69, 0.05) 100%) !important;
+  border: 1px solid rgba(255, 122, 69, 0.3) !important;
+  color: #e65100 !important;
+  box-shadow: 0 4px 15px rgba(255, 122, 69, 0.12) !important;
+}
+[data-theme="light"] .playlist-item:hover {
+  background: rgba(0, 0, 0, 0.04) !important;
+}
+[data-theme="light"] .playlist-item.active {
+  background: rgba(255, 122, 69, 0.12) !important;
+  border-color: rgba(255, 122, 69, 0.25) !important;
+  color: #e65100 !important;
+}
+[data-theme="light"] .playlist-item-title {
+  color: #0f172a !important;
+}
+
+/* 5. Главная таблица треков */
+[data-theme="light"] .main-content {
+  background: var(--glass-card) !important;
+  border: 1px solid var(--glass-border) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05) !important;
+}
+[data-theme="light"] .tracklist-header {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
+  color: #64748b !important;
+}
+[data-theme="light"] .track-row:hover {
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.04) 0%, rgba(0, 0, 0, 0.01) 250px, transparent 450px) !important;
+}
+[data-theme="light"] .track-row.playing {
+  background: linear-gradient(90deg, rgba(255, 122, 69, 0.12) 0%, rgba(255, 122, 69, 0.02) 280px, transparent 450px) !important;
+}
+[data-theme="light"] .track-row.playing .col-title {
+  color: #e65100 !important;
+  font-weight: 700 !important;
+}
+[data-theme="light"] .col-title {
+  color: #0f172a !important;
+}
+[data-theme="light"] .col-artist,
+[data-theme="light"] .col-album {
+  color: #475569 !important;
+}
+[data-theme="light"] .col-index,
+[data-theme="light"] .col-time {
+  color: #64748b !important;
+}
+
+/* 6. Нижняя панель управления плеером */
+[data-theme="light"] .control-panel {
+  background: rgba(255, 255, 255, 0.88) !important;
+  border-top: 1px solid var(--glass-border) !important;
+  box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.04) !important;
+}
+[data-theme="light"] .track-title {
+  color: #0f172a !important;
+}
+[data-theme="light"] .track-artist {
+  color: #475569 !important;
+}
+[data-theme="light"] .control-btn {
+  color: #334155 !important;
+  fill: #334155 !important;
+}
+[data-theme="light"] .control-btn:hover {
+  color: #0f172a !important;
+  fill: #0f172a !important;
+  filter: drop-shadow(0 0 6px rgba(0, 0, 0, 0.15)) !important;
+}
+[data-theme="light"] .control-btn.active,
+[data-theme="light"] #btn-shuffle.active,
+[data-theme="light"] #btn-repeat.active,
+[data-theme="light"] #btn-lyrics-toggle.active,
+[data-theme="light"] #btn-eq-toggle.active {
+  color: #ff7a45 !important;
+  fill: #ff7a45 !important;
+  filter: drop-shadow(0 0 8px rgba(255, 122, 69, 0.3)) !important;
+}
+[data-theme="light"] input[type="range"] {
+  background: rgba(0, 0, 0, 0.1) !important;
+}
+[data-theme="light"] input[type="range"]::-webkit-slider-thumb {
+  background: #ff7a45 !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* 7. Панель очереди (Queue) и текста песни (Lyrics) */
+[data-theme="light"] .lyrics-panel {
+  background: var(--glass-card) !important;
+  border: 1px solid var(--glass-border) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05) !important;
+}
+[data-theme="light"] .queue-panel {
+  background: var(--glass-card) !important;
+  border: none !important;
+  border-left: 1px solid var(--glass-border) !important;
+  box-shadow: none !important;
+}
+[data-theme="light"] .karaoke-line {
+  color: #475569 !important;
+}
+[data-theme="light"] .karaoke-line:hover {
+  color: #0f172a !important;
+}
+[data-theme="light"] .karaoke-line.active {
+  color: #ff7a45 !important;
+  text-shadow: 0 0 10px rgba(255, 122, 69, 0.3) !important;
+}
+
+/* 8. Модальные окна, контекстные меню и выпадающие списки */
+[data-theme="light"] .glass-modal,
+[data-theme="light"] .context-menu,
+[data-theme="light"] .speed-popup {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border: 1px solid rgba(0, 0, 0, 0.12) !important;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12) !important;
+  color: #0f172a !important;
+}
+[data-theme="light"] .modal-header {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
+  color: #0f172a !important;
+}
+[data-theme="light"] .context-menu li {
+  color: #0f172a !important;
+}
+[data-theme="light"] .context-menu li:hover {
+  background: rgba(255, 122, 69, 0.08) !important;
+  color: #e65100 !important;
+}
+[data-theme="light"] .dropdown-options {
+  background: #ffffff !important;
+  border: 1px solid rgba(0, 0, 0, 0.12) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1) !important;
+}
+[data-theme="light"] .dropdown-option {
+  color: #334155 !important;
+}
+[data-theme="light"] .dropdown-option:hover {
+  background: rgba(0, 0, 0, 0.04) !important;
+  color: #0f172a !important;
+}
+[data-theme="light"] .dropdown-option.active {
+  background: rgba(255, 122, 69, 0.12) !important;
+  color: #e65100 !important;
+  border-left: 3px solid #ff7a45 !important;
+}
+[data-theme="light"] .custom-btn {
+  background: rgba(0, 0, 0, 0.04) !important;
+  border: 1px solid rgba(0, 0, 0, 0.12) !important;
+  color: #0f172a !important;
+}
+[data-theme="light"] .custom-btn:hover {
+  background: rgba(255, 122, 69, 0.1) !important;
+  border-color: rgba(255, 122, 69, 0.3) !important;
+  color: #e65100 !important;
+}
+[data-theme="light"] .cosmic-tooltip {
+  background: #0f172a !important;
+  color: #ffffff !important;
+}
+[data-theme="light"] .cosmic-toast {
+  background: #ffffff !important;
+  color: #0f172a !important;
+  border: 1px solid rgba(0, 0, 0, 0.1) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* 9. Полноэкранный оверлей (Fullscreen Overlay) в светлом режиме */
+[data-theme="light"] .fullscreen-overlay {
+  background: linear-gradient(145deg, #f8fafc 0%, #e2e8f0 50%, #cbd5e1 100%) !important;
+}
+[data-theme="light"] .fullscreen-title {
+  color: #0f172a !important;
+}
+[data-theme="light"] .fullscreen-artist {
+  color: #475569 !important;
+}
+[data-theme="light"] .fullscreen-close-btn {
+  background: rgba(0, 0, 0, 0.05) !important;
+  border: 1px solid rgba(0, 0, 0, 0.1) !important;
+  color: #0f172a !important;
+}
+[data-theme="light"] .fullscreen-close-btn:hover {
+  background: rgba(0, 0, 0, 0.1) !important;
+}
+[data-theme="light"] .fullscreen-lyrics-content .karaoke-line {
+  color: #64748b !important;
+}
+[data-theme="light"] .fullscreen-lyrics-content .karaoke-line.active {
+  color: #ff7a45 !important;
+}
+
+/* 10. МОДАЛЬНОЕ ОКНО ЭКВАЛАЙЗЕРА В СВЕТЛОМ РЕЖИМЕ (STUDIO CONSOLE LIGHT) */
+[data-theme="light"] .eq-modal-content {
+  background: #ffffff !important;
+  border: 1px solid rgba(0, 0, 0, 0.12) !important;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15) !important;
+  color: #0f172a !important;
+}
+[data-theme="light"] .eq-canvas-wrapper {
+  background: #ffffff !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
+}
+[data-theme="light"] canvas#eq-canvas {
+  filter: invert(0.92) hue-rotate(160deg) !important;
+}
+[data-theme="light"] .eq-mode-btn {
+  background: rgba(15, 23, 42, 0.06) !important;
+  border: 1px solid rgba(0, 0, 0, 0.12) !important;
+  color: #334155 !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05) !important;
+}
+[data-theme="light"] .eq-mode-btn:hover {
+  background: rgba(15, 23, 42, 0.12) !important;
+  color: #0f172a !important;
+}
+[data-theme="light"] .eq-mid-toolbar {
+  background: #f1f5f9 !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
+}
+[data-theme="light"] .dropdown-selected#eq-preset-selected {
+  background: #ffffff !important;
+  border: 1px solid rgba(0, 0, 0, 0.15) !important;
+  color: #0f172a !important;
+}
+[data-theme="light"] .eq-qfactor-box {
+  background: rgba(0, 0, 0, 0.04) !important;
+  border: 1px solid rgba(0, 0, 0, 0.1) !important;
+}
+[data-theme="light"] .eq-q-label {
+  color: #64748b !important;
+}
+[data-theme="light"] .eq-q-btn {
+  color: #475569 !important;
+}
+[data-theme="light"] .eq-q-btn.active,
+[data-theme="light"] .eq-q-btn:hover {
+  background: rgba(0, 0, 0, 0.08) !important;
+  color: #ff7a45 !important;
+}
+[data-theme="light"] .eq-bypass-btn {
+  background: rgba(0, 0, 0, 0.04) !important;
+  border: 1px solid rgba(0, 0, 0, 0.12) !important;
+  color: #334155 !important;
+}
+[data-theme="light"] .eq-bypass-btn:hover {
+  background: rgba(0, 0, 0, 0.08) !important;
+  color: #0f172a !important;
+}
+[data-theme="light"] .eq-console-body {
+  background: #f8fafc !important;
+}
+[data-theme="light"] .eq-console-divider {
+  background: rgba(0, 0, 0, 0.12) !important;
+}
+[data-theme="light"] .eq-preamp-label,
+[data-theme="light"] .eq-freq-label {
+  color: #334155 !important;
+  font-weight: 700 !important;
+}
+[data-theme="light"] input[type="range"].eq-fader {
+  background: rgba(15, 23, 42, 0.12) !important;
+  border: 1px solid rgba(0, 0, 0, 0.18) !important;
+}
+[data-theme="light"] .eq-peak-led {
+  background: rgba(0, 0, 0, 0.05) !important;
+  border: 1px solid rgba(0, 0, 0, 0.1) !important;
+  color: #64748b !important;
+}
+
+/* 11. Видимость времени плеера в светлой теме */
+[data-theme="light"] .time-current,
+[data-theme="light"] .time-total,
+[data-theme="light"] .fullscreen-progress-wrapper .time-current,
+[data-theme="light"] .fullscreen-progress-wrapper .time-total {
+  color: #334155 !important;
+  font-weight: 600 !important;
+  opacity: 1 !important;
+}
+
+/* Адаптация вкладок библиотеки и заголовков поиска в светлой теме */
+[data-theme="light"] .library-tabs {
+  background: rgba(255, 255, 255, 0.6) !important;
+  border-bottom: 1px solid var(--glass-border) !important;
+}
+[data-theme="light"] .library-tab {
+  color: #475569 !important;
+}
+[data-theme="light"] .library-tab:hover {
+  background: rgba(0, 0, 0, 0.04) !important;
+  color: #0f172a !important;
+}
+[data-theme="light"] .library-tab.active {
+  background: var(--accent-pink) !important;
+  border: none !important;
+  border-color: transparent !important;
+  color: #ffffff !important;
+  box-shadow: none !important;
+}
+[data-theme="light"] .tracklist-section-title {
+  background: rgba(0, 0, 0, 0.03) !important;
+  color: #ff7a45 !important;
+  border-bottom: 1px solid var(--glass-border) !important;
+}
+
+/* Поиск по коду (Ctrl + F): [data-theme="light"] */
+[data-theme="light"] .connected-folder-item .remove-folder-btn {
+  background: rgba(225, 29, 72, 0.1) !important;
+  border: 1px solid rgba(225, 29, 72, 0.3) !important;
+  color: #e11d48 !important;
+}
+
+[data-theme="light"] .connected-folder-item .remove-folder-btn:hover {
+  background: #e11d48 !important;
+  border-color: #e11d48 !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 14px rgba(225, 29, 72, 0.35) !important;
+}
+

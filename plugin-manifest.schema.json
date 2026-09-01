@@ -1,0 +1,201 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://orphira.app/schemas/plugin-manifest-v2.json",
+  "title": "Orphira Plugin Manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "manifestVersion",
+    "id",
+    "name",
+    "version",
+    "orphira"
+  ],
+  "properties": {
+    "manifestVersion": {
+      "const": 1
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9._-]{2,127}$"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 100
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+(?:[-+][a-zA-Z0-9._-]+)?$"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 500
+    },
+    "author": {
+      "type": "string",
+      "maxLength": 100
+    },
+    "license": {
+      "type": "string",
+      "maxLength": 100
+    },
+    "entry": {
+      "type": "string",
+      "minLength": 1
+    },
+    "orphira": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "apiVersion",
+        "minimumVersion"
+      ],
+      "properties": {
+        "apiVersion": {
+          "const": 2
+        },
+        "minimumVersion": {
+          "type": "string"
+        }
+      }
+    },
+    "permissions": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "player:read",
+          "player:control",
+          "timeline:read",
+          "timeline:control",
+          "queue:read",
+          "queue:write",
+          "library:read",
+          "playlists:read",
+          "playlists:write",
+          "equalizer:read",
+          "equalizer:control",
+          "equalizer:presets",
+          "equalizer:visualizer",
+          "lyrics:read",
+          "storage",
+          "network",
+          "ui:notifications",
+          "ui:commands",
+          "ui:settings",
+          "ui:player",
+          "ui:sidebar",
+          "ui:context-menu",
+          "ui:views",
+          "ui:layout",
+          "themes:register",
+          "locales:register",
+          "providers:metadata",
+          "providers:lyrics",
+          "providers:artwork"
+        ]
+      }
+    },
+    "network": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "hosts": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "contributes": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "commands": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "title"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "themes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "name",
+              "file"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "file": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "locales": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "language",
+              "file"
+            ],
+            "properties": {
+              "language": {
+                "type": "string"
+              },
+              "file": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "views": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "title",
+              "file"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "file": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

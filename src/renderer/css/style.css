@@ -1,0 +1,109 @@
+/* ==========================================================================
+ COSMIC PLAYER - MAIN STYLES BUNDLE
+ Главный файл сборки всех модульных стилей приложения
+ ========================================================================== */
+
+/* 1. Переменные и темы */
+@import url('./variables.css');
+
+/* 2. Базовый сброс, размытые звезды и амбиентные орбы */
+@import url('./base.css');
+
+/* 3. Шапка окна и поиск */
+@import url('./titlebar.css');
+
+/* 4. Левый сайдбар, микро-индикатор плейлистов и навигация */
+@import url('./sidebar.css');
+
+/* 5. Таблица треков */
+@import url('./tracklist.css');
+
+/* 6. Вкладки библиотеки, сетки альбомов и исполнителей */
+@import url('./library-views.css');
+
+/* 7. Встроенные настройки внутри главного окна */
+@import url('./settings-view.css');
+
+/* 8. Нижняя панель управления и визуализатор */
+@import url('./player.css');
+
+/* 9. Модальные окна, эквалайзер и выпадающие списки */
+@import url('./modals.css');
+
+/* 10. Панель очереди и стили караоке-текста */
+@import url('./queue.css');
+@import url('./lyrics.css');
+
+/* 11. Полноэкранный оверлей и калибровка выезда */
+@import url('./fullscreen.css');
+
+/* 12. Анимации, тултипы и контекстное меню */
+@import url('./animations.css');
+
+/* 13. Для экспериментов*/
+@import url('./custom-theme.css');
+
+/* 14. Светлая тема оформления (Modern Windows Light) */
+@import url('./themes/light.css');
+
+/* 15. Тёмная классическая тема оформления (Modern Windows Dark Grey) */
+@import url('./themes/dark.css');
+
+/* 16. Мягкая светлая тема оформления (Warm Ivory / Слоновая Кость) */
+@import url('./themes/warm-ivory.css');
+
+@import url('./artist-view.css');
+
+/* 17. Калибровка выезда */
+@import url('./album-view.css');
+
+/* 18. Отдельный оверлей окна просмотра обложки альбома */
+@import url('./album-cover-viewer.css');
+
+/* 19. Новый изолированный CSS Plugin */
+@import url('./plugins.css');
+
+
+/* ==========================================================================
+ ПОДСВЕТКА ГЛАВНОЙ РАБОЧЕЙ ОБЛАСТИ ПРИ ПЕРЕТАСКИВАНИИ ПАПОК / ФАЙЛОВ
+ ========================================================================== */
+.main-viewport.drag-active {
+  position: relative;
+}
+
+.main-viewport.drag-active::after {
+  content: "Перетащите папки или аудиофайлы сюда";
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  right: 14px;
+  bottom: 14px;
+  z-index: 9999;
+  background: rgba(15, 10, 35, 0.78);
+  border: 2px dashed var(--accent-pink);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.5px;
+  box-shadow: inset 0 0 40px var(--accent-glow), 0 0 30px var(--accent-glow);
+  pointer-events: none;
+  animation: dropZonePulse 1.2s ease-in-out infinite alternate;
+}
+
+@keyframes dropZonePulse {
+  0% { opacity: 0.85; transform: scale(0.997); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+.nav-item.drag-active,
+.playlist-item.drag-active {
+  border: 1px dashed var(--accent-pink) !important;
+  background: rgba(129, 140, 248, 0.25) !important;
+  box-shadow: 0 0 15px var(--accent-glow) !important;
+}

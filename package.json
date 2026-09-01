@@ -1,0 +1,158 @@
+{
+  "name": "orphira",
+  "version": "1.2.6",
+  "description": "Orphira - Modern Audio Player with Web Audio API",
+  "author": "Olivia Løvgreen <orphiraplayer@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Oliviqo/orphira.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Oliviqo/orphira/issues"
+  },
+  "homepage": "https://github.com/Oliviqo/orphira#readme",
+  "main": "src/main/main.js",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder",
+    "dist:win": "electron-builder --win nsis --x64",
+    "dist:mac:x64": "electron-builder --mac dmg zip --x64",
+    "dist:mac:arm64": "electron-builder --mac dmg zip --arm64",
+    "dist:linux:x64": "electron-builder --linux AppImage --x64",
+    "dist:linux:arm64": "electron-builder --linux AppImage --arm64",
+    "pack-plugin": "node tools/pack-plugin.js"
+  },
+  "build": {
+    "appId": "com.orphira.player",
+    "productName": "Orphira",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "src/**/*",
+      "icon.ico",
+      "package.json"
+    ],
+"extraResources": [
+ {
+ "from": "src/main/assets/fpcalc/win32-x64/fpcalc.exe",
+ "to": "fpcalc/win32-x64/fpcalc.exe"
+ },
+ {
+ "from": "src/main/assets/fpcalc/darwin-x64/fpcalc",
+ "to": "fpcalc/darwin-x64/fpcalc"
+ },
+ {
+ "from": "src/main/assets/fpcalc/darwin-arm64/fpcalc",
+ "to": "fpcalc/darwin-arm64/fpcalc"
+ },
+ {
+ "from": "src/main/assets/fpcalc/linux-x64/fpcalc",
+ "to": "fpcalc/linux-x64/fpcalc"
+ },
+ {
+ "from": "src/main/assets/fpcalc/linux-arm64/fpcalc",
+ "to": "fpcalc/linux-arm64/fpcalc"
+ },
+ {
+ "from": "Licenses",
+ "to": "Licenses",
+ "filter": [
+ "**/*"
+ ]
+ },
+ {
+ "from": "Plugins readme",
+ "to": "Plugins readme",
+ "filter": [
+ "**/*"
+ ]
+ },
+ {
+ "from": "examples",
+ "to": "examples",
+ "filter": [
+ "**/*"
+ ]
+ },
+{
+  "from": "tools",
+  "to": "tools",
+  "filter": [
+    "**/*"
+  ]
+},
+ {
+ "from": "plugin-manifest.schema.json",
+ "to": "plugin-manifest.schema.json"
+ }
+],
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "Oliviqo",
+        "repo": "orphira",
+        "releaseType": "release"
+      }
+    ],
+    "win": {
+      "icon": "icon.ico",
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Orphira"
+    },
+    "mac": {
+      "category": "public.app-category.music",
+      "target": [
+        {
+          "target": "dmg",
+          "arch": [
+            "x64",
+            "arm64"
+          ]
+        },
+        {
+          "target": "zip",
+          "arch": [
+            "x64",
+            "arm64"
+          ]
+        }
+      ]
+    },
+    "linux": {
+      "category": "Audio;AudioVideo",
+      "target": [
+        {
+          "target": "AppImage",
+          "arch": [
+            "x64",
+            "arm64"
+          ]
+        }
+      ]
+    }
+  },
+  "dependencies": {
+    "chokidar": "^3.6.0",
+    "electron-log": "^5.0.0",
+    "electron-updater": "^6.6.2",
+    "music-metadata": "^7.14.0"
+  },
+  "devDependencies": {
+    "electron": "^29.0.0",
+    "electron-builder": "^24.13.3"
+  }
+}

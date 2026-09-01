@@ -1,0 +1,37 @@
+{
+  "manifest": {
+    "$schema": "../../plugin-manifest.schema.json",
+    "manifestVersion": 1,
+    "id": "app.orphira.examples.hello-world",
+    "name": "Hello World",
+    "version": "2.0.0",
+    "description": "Reference source plugin for Orphira Plugin API v2.",
+    "author": "Orphira",
+    "license": "MIT",
+    "orphira": {
+      "apiVersion": 2,
+      "minimumVersion": "1.2.6"
+    },
+    "entry": "plugin.js",
+    "permissions": [
+      "player:read",
+      "storage",
+      "ui:notifications",
+      "ui:settings",
+      "ui:player",
+      "equalizer:visualizer"
+    ],
+    "network": {
+      "hosts": []
+    },
+    "contributes": {
+      "commands": [],
+      "themes": [],
+      "locales": [],
+      "views": []
+    }
+  },
+  "files": {
+    "plugin.js": "module.exports = {\r\n async activate(api) {\r\n let count =\r\n await api.storage.get(\r\n 'count'\r\n ) || 0;\r\n\r\n await api.notifications.show(\r\n 'Hello World API v2 started',\r\n 'success'\r\n );\r\n\r\n await api.ui.player.addAction({\r\n id: 'hello',\r\n title: 'Hello World',\r\n icon: '◆',\r\n\r\n async onClick() {\r\n const track =\r\n await api.player.getCurrentTrack();\r\n\r\n await api.notifications.show(\r\n track\r\n ? track.title\r\n : 'Nothing playing',\r\n 'info'\r\n );\r\n }\r\n });\r\n\r\n await api.ui.settings.addSection({\r\n id: 'general',\r\n title: 'Hello World',\r\n controls: [\r\n {\r\n id: 'enabled',\r\n type: 'toggle',\r\n label: 'Example toggle',\r\n description:\r\n 'A setting owned by this plugin.',\r\n default: true,\r\n\r\n async onChange(event) {\r\n await api.notifications.show(\r\n `Setting: ${event.value}`,\r\n 'info'\r\n );\r\n }\r\n }\r\n ]\r\n });\r\n\r\n await api.equalizer\r\n .registerVisualizerMode({\r\n id: 'hello-bars',\r\n name: 'Hello Bars',\r\n type: 'bars',\r\n color: '#ff7a45',\r\n secondaryColor: '#6366f1'\r\n });\r\n\r\n api.events.on(\r\n 'player.trackChanged',\r\n async track => {\r\n count += 1;\r\n\r\n await api.storage.set(\r\n 'count',\r\n count\r\n );\r\n\r\n await api.notifications.show(\r\n `Track ${count}: ${track.title}`,\r\n 'info'\r\n );\r\n }\r\n );\r\n },\r\n\r\n async deactivate() {\r\n }\r\n};"
+  }
+}

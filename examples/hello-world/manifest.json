@@ -1,0 +1,32 @@
+{
+  "$schema": "../../plugin-manifest.schema.json",
+  "manifestVersion": 1,
+  "id": "app.orphira.examples.hello-world",
+  "name": "Hello World",
+  "version": "2.0.0",
+  "description": "Reference source plugin for Orphira Plugin API v2.",
+  "author": "Orphira",
+  "license": "MIT",
+  "orphira": {
+    "apiVersion": 2,
+    "minimumVersion": "1.2.6"
+  },
+  "entry": "plugin.js",
+  "permissions": [
+    "player:read",
+    "storage",
+    "ui:notifications",
+    "ui:settings",
+    "ui:player",
+    "equalizer:visualizer"
+  ],
+  "network": {
+    "hosts": []
+  },
+  "contributes": {
+    "commands": [],
+    "themes": [],
+    "locales": [],
+    "views": []
+  }
+}

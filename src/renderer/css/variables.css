@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+:root {
+  --ui-font-scale: 100%;
+  --font-outfit: 'Outfit', -apple-system, sans-serif;
+  --font-jakarta: 'Plus Jakarta Sans', -apple-system, sans-serif;
+  --font-system: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-primary: var(--font-outfit);
+
+  /* Глубокий обсидиан с благородным графитово-ночным отливом */
+  --bg-gradient: linear-gradient(145deg, #020305 0%, #05070d 45%, #080a14 80%, #04060e 100%);
+
+  /* Элегантная стеклянная графика */
+  --glass-bg: rgba(14, 18, 30, 0.32);
+  --glass-border: rgba(255, 255, 255, 0.06);
+  --glass-hover: rgba(255, 255, 255, 0.06);
+  --glass-card: rgba(8, 11, 20, 0.42);
+
+  /* Высококонтрастная типографика */
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-muted: #52617a;
+
+  /* Акценты (Мягкий Кораллово-Оранжевый) */
+  --accent-pink: #ff7a45;
+  --accent-cyan: #ff9a6b;
+  --accent-purple: #ff6b52;
+  --accent-amber: #ffb088;
+  /* Градиент акцента */
+  --accent-gradient: linear-gradient(135deg, #ff5e36 0%, #ff7a45 50%, #ff9a6b 100%);
+  /* Свечение */
+  --accent-glow: rgba(255, 122, 69, 0.28);
+  --accent-cyan-glow: rgba(255, 154, 107, 0.20);
+  --danger-color: #fb7185;
+
+  /* Радиусы */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-full: 9999px;
+
+  /* Цвет модалок */
+  --modal-bg: rgba(2, 3, 6, 0.85);
+
+   /* Централизованная шкала слоёв интерфейса */
+ --z-content-overlay: 400;
+ --z-side-panel: 450;
+ --z-modal: 1000;
+ --z-floating-ui: 10000;
+ --z-tooltip: 100000;
+ --z-fullscreen: 200000;
+ --z-fullscreen-modal: 210000;
+ --z-window-controls: 220000;
+ 
+}
+
+html {
+  font-size: var(--ui-font-scale);
+}
+
+[data-font="outfit"] { --font-primary: var(--font-outfit); }
+[data-font="jakarta"] { --font-primary: var(--font-jakarta); }
+[data-font="system"] { --font-primary: var(--font-system); }
+

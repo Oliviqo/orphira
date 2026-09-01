@@ -1,0 +1,833 @@
+/* ==========================================================================
+ ORPHIRA - FULLSCREEN PLAYER THEME: REFERENCE
+ Large Bottom-Left Cover, Horizontal Metadata & Symmetric Transport
+ ========================================================================== */
+.fullscreen-overlay.fullscreen-theme-reference {
+  --reference-edge-x: clamp(32px, 4vw, 64px);
+  --reference-bottom: clamp(20px, 2.8vh, 32px);
+  --reference-controls-height: 48px;
+  --reference-timeline-bottom: calc(
+    var(--reference-bottom) +
+    var(--reference-controls-height) +
+    22px
+  );
+  --reference-stage-bottom: calc(
+    var(--reference-timeline-bottom) +
+    52px
+  );
+  --reference-stage-top: 54px;
+  --reference-cover-size: clamp(220px, 32vh, 380px);
+  --reference-accent: var(--accent-pink);
+  --reference-accent-rgb: 255, 122, 69;
+  --reference-cover-rgb: 255, 122, 69;
+  --reference-ambient-rgb: 255, 122, 69;
+  --reference-artwork-image: none;
+
+  background: linear-gradient(
+    135deg,
+    #05070c 0%,
+    #03050a 52%,
+    #020308 100%
+  );
+}
+
+/* ==========================================================================
+   DYNAMIC AMBIENT CROSSFADE LAYERS
+   ========================================================================== */
+.reference-ambient-container {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.reference-bg-layer {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  will-change: opacity;
+}
+
+.reference-bg-layer.active {
+  opacity: 1;
+}
+
+/*
+ * Нижний слой сохраняет крупные световые массы реальной обложки.
+ * Детали полностью растворяются blur-фильтром.
+ */
+.reference-bg-layer::before {
+  content: "";
+  position: absolute;
+  left: -16%;
+  top: -24%;
+  width: 94%;
+  height: 148%;
+  z-index: 0;
+  background-image: var(--reference-artwork-image);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  filter: blur(110px) saturate(1.9) brightness(0.68);
+  transform: scale(1.16);
+  opacity: 0.46;
+}
+
+/*
+ * Основной ambient.
+ * Первый источник находится непосредственно за artwork.
+ * Второй растекается вверх и в центральную пустую область.
+ * Третий даёт небольшой цветовой отклик по нижнему краю.
+ */
+.reference-bg-layer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    radial-gradient(
+      ellipse 48% 72% at 14% 68%,
+      rgba(var(--reference-cover-rgb), 0.48) 0%,
+      rgba(var(--reference-cover-rgb), 0.30) 18%,
+      rgba(var(--reference-ambient-rgb), 0.16) 42%,
+      rgba(var(--reference-ambient-rgb), 0.06) 62%,
+      transparent 80%
+    ),
+    radial-gradient(
+      ellipse 64% 78% at 22% 26%,
+      rgba(var(--reference-ambient-rgb), 0.24) 0%,
+      rgba(var(--reference-ambient-rgb), 0.12) 34%,
+      rgba(var(--reference-cover-rgb), 0.045) 58%,
+      transparent 78%
+    ),
+    radial-gradient(
+      ellipse 62% 42% at 39% 100%,
+      rgba(var(--reference-accent-rgb), 0.13) 0%,
+      rgba(var(--reference-cover-rgb), 0.055) 45%,
+      transparent 76%
+    ),
+    linear-gradient(
+      90deg,
+      rgba(2, 3, 7, 0.04) 0%,
+      rgba(2, 3, 7, 0.02) 34%,
+      rgba(2, 3, 7, 0.16) 57%,
+      rgba(2, 3, 7, 0.40) 78%,
+      rgba(2, 3, 7, 0.56) 100%
+    );
+  filter: blur(34px) saturate(1.08);
+  transform: scale(1.06);
+}
+
+/* ==========================================================================
+ CONTENT LAYER
+ ========================================================================== */
+.fullscreen-overlay.fullscreen-theme-reference .fullscreen-content {
+ position: absolute;
+ inset: 0;
+ z-index: 2;
+ width: 100%;
+ height: 100%;
+ display: block;
+ overflow: hidden;
+ pointer-events: none;
+}
+
+.fullscreen-overlay.fullscreen-theme-reference .fullscreen-player-box {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  display: block;
+  transform: none;
+  pointer-events: none;
+}
+
+/* ==========================================================================
+ LARGE BOTTOM-LEFT ARTWORK (Большая обложка слева над плеером)
+ ========================================================================== */
+.fullscreen-overlay.fullscreen-theme-reference .fullscreen-cover {
+  position: absolute;
+  left: var(--reference-edge-x);
+  bottom: calc(var(--reference-timeline-bottom) + 32px);
+  top: auto;
+  z-index: 20;
+  width: var(--reference-cover-size);
+  height: var(--reference-cover-size);
+  max-width: min(38vw, 380px);
+  max-height: min(38vh, 380px);
+  margin: 0;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+ box-shadow:
+  0 24px 64px rgba(0, 0, 0, 0.58),
+  0 8px 28px rgba(0, 0, 0, 0.32),
+  0 0 52px rgba(var(--reference-cover-rgb), 0.16);
+  transform: none;
+  pointer-events: auto;
+  transition: transform 0.2s ease, filter 0.2s ease, box-shadow 0.2s ease;
+}
+
+.fullscreen-overlay.fullscreen-theme-reference .fullscreen-cover::before,
+.fullscreen-overlay.fullscreen-theme-reference .fullscreen-cover::after {
+  content: none !important;
+  display: none !important;
+}
+
+.fullscreen-overlay.fullscreen-theme-reference .fullscreen-cover:hover {
+  transform: scale(1.02);
+  filter: brightness(1.05);
+}
+
+/* ==========================================================================
+ TRACK METADATA (Справа от обложки)
+ ========================================================================== */
+.fullscreen-overlay.fullscreen-theme-reference .fullscreen-meta {
+  position: absolute;
+  left: calc(var(--reference-edge-x) + var(--reference-cover-size) + 24px);
+  bottom: calc(var(--reference-timeline-bottom) + 32px);
+  top: auto;
+  z-index: 20;
+  width: calc(48vw - var(--reference-cover-size) - var(--reference-edge-x) - 24px);
+  max-width: 480px;
+  height: var(--reference-cover-size);
+  max-height: min(38vh, 380px);
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0;
+  transform: none;
+  text-align: left;
+  pointer-events: none;
+}
+
+.fullscreen-overlay.fullscreen-theme-reference .fullscreen-title {
+  width: 100%;
+  margin: 0;
+  color: #ffffff;
+  font-size: clamp(22px, 2.4vw, 36px);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.fullscreen-overlay.fullscreen-theme-reference .fullscreen-artist {
+  display: none;
+}
+
+.fullscreen-overlay.fullscreen-theme-reference .reference-meta-row {
+  width: 100%;
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  min-width: 0;
+  overflow: hidden;
+  color: rgba(248, 250, 252, 0.65);
+  font-size: clamp(13px, 1.2vw, 16px);
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.fullscreen-overlay.fullscreen-theme-reference .reference-meta-item {
+  min-width: 0;
+  max-width: 45%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex-shrink: 1;
+}
+
+.fullscreen-overlay.fullscreen-theme-reference .reference-meta-item:first-child {
+  max-width: 48%;
+  flex-shrink: 0;
+  color: rgba(248, 250, 252, 0.90);
+  font-weight: 600;
+}
+
+.fullscreen-overlay.fullscreen-theme-reference .reference-meta-dot {
+  width: 4px;
+  height: 4px;
+  margin: 0 8px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.5;
+  flex: 0 0 4px;
+}
+
+.fullscreen-overlay.fullscreen-theme-reference .reference-track-technical {
+ display: none !important;
+}
+
+.fullscreen-overlay.fullscreen-theme-reference .reference-technical-row {
+ width: 100%;
+ margin-top: 7px;
+ display: flex;
+ align-items: center;
+ flex-wrap: nowrap;
+ min-width: 0;
+ overflow: hidden;
+ color: rgba(248, 250, 252, 0.38);
+ font-size: clamp(10px, 0.82vw, 12px);
+ font-weight: 550;
+ line-height: 1.35;
+ letter-spacing: 0.08px;
+ font-variant-numeric: tabular-nums;
+}
+
+.fullscreen-overlay.fullscreen-theme-reference .reference-technical-row.is-empty {
+ display: none;
+}
+
+.fullscreen-overlay.fullscreen-theme-reference .reference-technical-row .reference-meta-item {
+ max-width: none;
+ flex: 0 1 auto;
+ color: inherit;
+ font-weight: inherit;
+}
+
+.fullscreen-overlay.fullscreen-theme-reference .reference-technical-row .reference-meta-item:first-child {
+ max-width: none;
+ flex-shrink: 0;
+ color: rgba(248, 250, 252, 0.50);
+ font-weight: 650;
+}
+
+.fullscreen-overlay.fullscreen-theme-reference .reference-technical-row .reference-meta-dot {
+ width: 3px;
+ height: 3px;
+ margin: 0 7px;
+ flex-basis: 3px;
+ opacity: 0.38;
+}
+
+/* ==========================================================================
+ RIGHT STAGE: LYRICS PANEL
+ ========================================================================== */
+.fullscreen-overlay.fullscreen-theme-reference .fullscreen-lyrics-panel,
+.fullscreen-overlay.fullscreen-theme-reference:not(.fullscreen-lyrics-open) .fullscreen-lyrics-panel,
+.fullscreen-overlay.fullscreen-theme-reference.fullscreen-lyrics-open .fullscreen-lyrics-panel {
+  position: absolute;
+  top: var(--reference-stage-top);
+  right: 0;
+  bottom: var(--reference-stage-bottom);
+  left: 50%;
+  z-index: 20;
+  width: 50%;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translate3d(0, 24px, 0);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease, visibility 0.25s allow-discrete;
+}
+
+.fullscreen-overlay.fullscreen-theme-reference.fullscreen-lyrics-open .fullscreen-lyrics-panel {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translate3d(0, 0, 0);
+}
+
+.fullscreen-overlay.fullscreen-theme-reference .fullscreen-lyrics-content {
+ width: 88%;
+ max-width: 1650px;
+ height: 100%;
+ margin: 0 auto;
+ transform: translateX(-30px);
+ padding-top: 40vh;
+ padding-bottom: 40vh;
+ padding-left: clamp(20px, 2.5vw, 40px);
+ padding-right: clamp(20px, 2.5vw, 40px);
+ box-sizing: border-box;
+ overflow-y: auto;
+ overflow-x: hidden;
+ scrollbar-width: none;
+ -ms-overflow-style: none;
+ -webkit-mask-image: linear-gradient(
+  to bottom,
+  transparent 0%,
+  rgba(0, 0, 0, 0.2) 10%,
+  rgba(0, 0, 0, 1) 26%,
+  rgba(0, 0, 0, 1) 74%,
+  rgba(0, 0, 0, 0.2) 90%,
+  transparent 100%
+ );
+ mask-image: linear-gradient(
+  to bottom,
+  transparent 0%,
+  rgba(0, 0, 0, 0.2) 10%,
+  rgba(0, 0, 0, 1) 26%,
+  rgba(0, 0, 0, 1) 74%,
+  rgba(0, 0, 0, 0.2) 90%,
+  transparent 100%
+ );
+}
+
+.fullscreen-overlay.fullscreen-theme-reference .fullscreen-lyrics-content::-webkit-scrollbar {
+  display: none;
+}
+
+/* ==========================================================================
+ LYRICS TYPOGRAPHY
+ ========================================================================== */
+.fullscreen-overlay.fullscreen-theme-reference .fullscreen-lyrics-content .karaoke-line {
+ font-size: var(--karaoke-font-size, 28px) !important;
+ line-height: 1.52 !important;
+ font-weight: 700 !important;
+ letter-spacing: -0.3px !important;
+ text-align: center !important;
+ color: rgba(248, 250, 252, 0.40) !important;
+ padding: clamp(8px, 1.3vh, 15px) 10px !important;
+ box-sizing: border-box !important;
+ transform-origin: center center !important;
+ text-shadow: none !important;
+ cursor: pointer !important;
+ transition: color 0.25s ease, opacity 0.25s ease, transform 0.25s ease, filter 0.25s ease !important;
+}
+
+.fullscreen-overlay.fullscreen-theme-reference .fullscreen-lyrics-content .karaoke-line.active {
+ color: #ffffff !important;
+ font-weight: 800 !important;
+ text-shadow: none !important;
+}
+
+.fullscreen-overlay.fullscreen-theme-reference .fullscreen-lyrics-content .karaoke-line:hover {
+ color: #ffffff !important;
+}
+
+.fullscreen-overlay.fullscreen-theme-reference .fullscreen-lyrics-content.is-scrolling .karaoke-line {
+ text-shadow: none !important;
+}
+
+.fullscreen-overlay.fullscreen-theme-reference .fullscreen-lyrics-content.is-scrolling .karaoke-line.active {
+ text-shadow: none !important;
+}
+
+/* ==========================================================================
+ TIMELINE (С соблюдением отступов от кнопок)
+ ========================================================================== */
+.fullscreen-overlay.fullscreen-theme-reference .fullscreen-progress-wrapper {
+  position: absolute;
+  left: var(--reference-edge-x);
+  right: var(--reference-edge-x);
+  bottom: var(--reference-timeline-bottom);
+  z-index: 30;
+  width: auto;
+  height: 30px;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 50px minmax(0, 1fr) 50px;
+  align-items: center;
+  gap: 12px;
+  color: rgba(248, 250, 252, 0.80);
+  font-size: 13px;
+  font-weight: 550;
+  pointer-events: auto;
+}
+
+.fullscreen-overlay.fullscreen-theme-reference .fullscreen-progress-wrapper .time-current,
+.fullscreen-overlay.fullscreen-theme-reference .fullscreen-progress-wrapper .time-total {
+  width: 50px;
+  min-width: 50px;
+  margin: 0;
+  padding: 0;
+  line-height: 30px;
+  color: rgba(248, 250, 252, 0.84);
+  font-size: 13px;
+  font-weight: 550;
+  font-variant-numeric: tabular-nums;
+}
+
+.fullscreen-overlay.fullscreen-theme-reference .fullscreen-progress-wrapper .time-current {
+  text-align: left;
+}
+
+.fullscreen-overlay.fullscreen-theme-reference .fullscreen-progress-wrapper .time-total {
+  text-align: right;
+}
+
+.fullscreen-overlay.fullscreen-theme-reference #fs-seekbar-box {
+  width: 100%;
+  height: 30px;
+  display: flex;
+  align-items: center;
+}
+
+.fullscreen-overlay.fullscreen-theme-reference #fs-seekbar-box .seekbar-track {
+  height: 4px;
+  background: rgba(255, 255, 255, 0.20);
+  transition: height 0.16s ease;
+}
+
+.fullscreen-overlay.fullscreen-theme-reference #fs-seekbar-box .seekbar-fill {
+  height: 4px;
+  background: var(--reference-accent);
+  transition: height 0.16s ease, background 0.3s ease;
+}
+
+.fullscreen-overlay.fullscreen-theme-reference #fs-seekbar-box:hover .seekbar-track,
+.fullscreen-overlay.fullscreen-theme-reference #fs-seekbar-box:hover .seekbar-fill {
+  height: 6px;
+}
+
+.fullscreen-overlay.fullscreen-theme-reference #fs-seekbar-box .seekbar-thumb {
+  width: 12px;
+  height: 12px;
+  margin-top: -6px;
+  margin-left: -6px;
+  background: var(--reference-accent);
+  box-shadow: 0 0 0 3px rgba(var(--reference-accent-rgb), 0.15);
+}
+
+/* ==========================================================================
+ TRANSPORT CONTROLS (Shuffle слева, Repeat справа от Next)
+ ========================================================================== */
+.fullscreen-overlay.fullscreen-theme-reference .fullscreen-buttons {
+  position: absolute;
+  left: 50%;
+  bottom: var(--reference-bottom);
+  z-index: 40;
+  width: 190px;
+  height: var(--reference-controls-height);
+  margin: 0;
+  display: block;
+  transform: translateX(-50%);
+  pointer-events: auto;
+}
+
+.fullscreen-overlay.fullscreen-theme-reference #fs-btn-prev {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 46px;
+  min-width: 46px;
+  height: 46px;
+  margin: 0;
+  padding: 0 !important;
+  transform: translateY(-50%);
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+.fullscreen-overlay.fullscreen-theme-reference #fs-btn-play-pause {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 48px;
+  min-width: 48px;
+  height: 48px;
+  margin: 0;
+  padding: 0 !important;
+  transform: translate(-50%, -50%);
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+.fullscreen-overlay.fullscreen-theme-reference #fs-btn-next {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  width: 46px;
+  min-width: 46px;
+  height: 46px;
+  margin: 0;
+  padding: 0 !important;
+  transform: translateY(-50%);
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+.fullscreen-overlay.fullscreen-theme-reference #fs-btn-prev .icon,
+.fullscreen-overlay.fullscreen-theme-reference #fs-btn-next .icon {
+  width: 28px;
+  height: 28px;
+}
+
+.fullscreen-overlay.fullscreen-theme-reference #fs-btn-play-pause .play-pause-icon {
+  width: 34px;
+  height: 34px;
+}
+
+/* Shuffle слева от Prev */
+.fullscreen-overlay.fullscreen-theme-reference #fs-btn-shuffle {
+  position: absolute;
+  top: 50%;
+  right: calc(100% + 28px);
+  width: 42px;
+  min-width: 42px;
+  height: 46px;
+  margin: 0;
+  padding: 0 !important;
+  transform: translateY(-50%);
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+/* Repeat справа от Next */
+.fullscreen-overlay.fullscreen-theme-reference #fs-btn-repeat {
+  position: absolute;
+  top: 50%;
+  left: calc(100% + 28px);
+  right: auto;
+  width: 42px;
+  min-width: 42px;
+  height: 46px;
+  margin: 0;
+  padding: 0 !important;
+  transform: translateY(-50%);
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+.fullscreen-overlay.fullscreen-theme-reference #fs-btn-shuffle .icon,
+.fullscreen-overlay.fullscreen-theme-reference #fs-btn-repeat .icon {
+  width: 22px;
+  height: 22px;
+}
+
+/* SECONDARY CONTROLS & VOLUME */
+.fullscreen-overlay.fullscreen-theme-reference .fullscreen-sub-controls {
+  position: absolute;
+  left: var(--reference-edge-x);
+  bottom: var(--reference-bottom);
+  z-index: 40;
+  width: auto;
+  height: var(--reference-controls-height);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 16px;
+  pointer-events: auto;
+}
+
+.fullscreen-overlay.fullscreen-theme-reference .fullscreen-sub-controls .control-btn {
+  width: 40px;
+  min-width: 40px;
+  height: 44px;
+  margin: 0;
+  padding: 0 !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+.fullscreen-overlay.fullscreen-theme-reference .fullscreen-volume-wrapper {
+  position: fixed;
+  right: var(--reference-edge-x);
+  bottom: var(--reference-bottom);
+  z-index: 50;
+  width: auto;
+  height: var(--reference-controls-height);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  pointer-events: auto;
+}
+
+.fullscreen-overlay.fullscreen-theme-reference .fullscreen-volume-wrapper #fs-btn-mute {
+  width: 40px;
+  min-width: 40px;
+  height: 44px;
+  margin: 0;
+  padding: 0 !important;
+}
+
+.fullscreen-overlay.fullscreen-theme-reference .fullscreen-volume-wrapper .volume-bar {
+  width: clamp(90px, 8vw, 130px);
+  min-width: 90px;
+}
+
+/* DYNAMIC ACCENTS & HOVERS */
+.fullscreen-overlay.fullscreen-theme-reference #fs-btn-shuffle.active,
+.fullscreen-overlay.fullscreen-theme-reference #fs-btn-repeat.active,
+.fullscreen-overlay.fullscreen-theme-reference #fs-btn-lyrics-toggle.active,
+.fullscreen-overlay.fullscreen-theme-reference #fs-btn-eq.active {
+  color: var(--reference-accent) !important;
+  filter: drop-shadow(0 0 8px rgba(var(--reference-accent-rgb), 0.40)) !important;
+}
+
+body .fullscreen-overlay.fullscreen-theme-reference .fullscreen-content {
+  min-width: 0;
+  min-height: 0;
+}
+
+body .fullscreen-overlay.fullscreen-theme-reference #fs-btn-play-pause:hover {
+  transform: translate(-50%, -50%) scale(1.08) !important;
+}
+
+body .fullscreen-overlay.fullscreen-theme-reference #fs-btn-play-pause:active {
+  transform: translate(-50%, -50%) scale(0.94) !important;
+}
+
+body .fullscreen-overlay.fullscreen-theme-reference #fs-btn-prev:hover,
+body .fullscreen-overlay.fullscreen-theme-reference #fs-btn-next:hover,
+body .fullscreen-overlay.fullscreen-theme-reference #fs-btn-shuffle:hover,
+body .fullscreen-overlay.fullscreen-theme-reference #fs-btn-repeat:hover {
+  transform: translateY(-50%) scale(1.08) !important;
+}
+
+body .fullscreen-overlay.fullscreen-theme-reference #fs-btn-prev:active,
+body .fullscreen-overlay.fullscreen-theme-reference #fs-btn-next:active,
+body .fullscreen-overlay.fullscreen-theme-reference #fs-btn-shuffle:active,
+body .fullscreen-overlay.fullscreen-theme-reference #fs-btn-repeat:active {
+  transform: translateY(-50%) scale(0.94) !important;
+}
+
+@media (max-width: 1020px) {
+  body .fullscreen-overlay.fullscreen-theme-reference .fullscreen-volume-wrapper .volume-bar {
+    display: none;
+  }
+}
+
+/* ==========================================================================
+ REFERENCE PLAYER - ARTWORK SPACING, BOTTOM META & WINDOW DRAG FIX
+ ========================================================================== */
+.fullscreen-overlay.fullscreen-theme-reference {
+ --reference-artwork-player-gap: clamp(54px, 7vh, 86px);
+}
+
+.fullscreen-overlay.fullscreen-theme-reference .fullscreen-cover {
+ bottom: calc(
+  var(--reference-timeline-bottom) +
+  var(--reference-artwork-player-gap)
+ );
+}
+
+.fullscreen-overlay.fullscreen-theme-reference .fullscreen-meta {
+ bottom: calc(
+  var(--reference-timeline-bottom) +
+  var(--reference-artwork-player-gap)
+ );
+ justify-content: flex-end;
+ padding-bottom: 0;
+}
+
+.fullscreen-overlay.fullscreen-theme-reference .fullscreen-drag-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 160px;
+  height: 60px;
+  z-index: 1000005;
+  pointer-events: auto !important;
+  -webkit-app-region: drag !important;
+  -webkit-user-select: none;
+}
+.fullscreen-overlay.fullscreen-theme-reference .fullscreen-window-controls {
+  z-index: 1000006;
+  -webkit-app-region: no-drag !important;
+}
+.fullscreen-overlay.fullscreen-theme-reference .fullscreen-window-controls * {
+  -webkit-app-region: no-drag !important;
+}
+
+@media (max-height: 680px) {
+ .fullscreen-overlay.fullscreen-theme-reference {
+  --reference-artwork-player-gap: clamp(42px, 6vh, 60px);
+ }
+}
+
+/* ==========================================================================
+ REFERENCE PLAYER - CLEAN READABLE LYRICS HIERARCHY
+ ========================================================================== */
+.fullscreen-overlay.fullscreen-theme-reference
+ .fullscreen-lyrics-content
+ .karaoke-line {
+ color: rgba(248, 250, 252, 0.58) !important;
+ opacity: 0.58 !important;
+}
+
+.fullscreen-overlay.fullscreen-theme-reference
+ .fullscreen-lyrics-content
+ .karaoke-line.active {
+ color: #ffffff !important;
+ opacity: 1 !important;
+ filter: none !important;
+ text-shadow: none !important;
+}
+
+.fullscreen-overlay.fullscreen-theme-reference
+ .fullscreen-lyrics-content
+ .karaoke-line:hover {
+ color: rgba(255, 255, 255, 0.88) !important;
+ opacity: 0.88 !important;
+ filter: none !important;
+ text-shadow: none !important;
+}
+
+.fullscreen-overlay.fullscreen-theme-reference
+ .fullscreen-lyrics-content.is-scrolling
+ .karaoke-line {
+ color: rgba(248, 250, 252, 0.64) !important;
+ opacity: 0.64 !important;
+ filter: none !important;
+ text-shadow: none !important;
+}
+
+.fullscreen-overlay.fullscreen-theme-reference
+ .fullscreen-lyrics-content.is-scrolling
+ .karaoke-line.active {
+ color: #ffffff !important;
+ opacity: 1 !important;
+ filter: none !important;
+ text-shadow: none !important;
+}
+
+/* ==========================================================================
+ REFERENCE PLAYER - CLEAN READABLE LYRICS HIERARCHY
+ ========================================================================== */
+.fullscreen-overlay.fullscreen-theme-reference
+ .fullscreen-lyrics-content
+ .karaoke-line {
+ color: rgba(248, 250, 252, 0.58) !important;
+}
+.fullscreen-overlay.fullscreen-theme-reference
+ .fullscreen-lyrics-content
+ .karaoke-line.active {
+ color: #ffffff !important;
+ text-shadow: none !important;
+}
+.fullscreen-overlay.fullscreen-theme-reference
+ .fullscreen-lyrics-content
+ .karaoke-line:hover {
+ color: rgba(255, 255, 255, 0.88) !important;
+ text-shadow: none !important;
+}
+.fullscreen-overlay.fullscreen-theme-reference
+ .fullscreen-lyrics-content.is-scrolling
+ .karaoke-line {
+ color: rgba(248, 250, 252, 0.64) !important; 
+ text-shadow: none !important;
+}
+.fullscreen-overlay.fullscreen-theme-reference
+ .fullscreen-lyrics-content.is-scrolling
+ .karaoke-line.active {
+ color: #ffffff !important;
+ text-shadow: none !important;
+}

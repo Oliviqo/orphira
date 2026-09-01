@@ -1,0 +1,388 @@
+/* ==========================================================================
+ COSMIC PLAYER - QUEUE PANEL STYLES
+ ========================================================================== */
+.queue-panel {
+ width: 280px;
+ border: none !important;
+  border-left: 1px solid var(--glass-border) !important;
+  background: var(--glass-card);
+  border-radius: 0 !important;
+  display: flex;
+  flex-direction: column;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+  flex-shrink: 0 !important;
+  height: 100% !important;
+  margin: 0 !important;
+  padding: 16px 12px !important;
+  box-shadow: none !important;
+  will-change: width, opacity, transform;
+  transition: width 0.3s var(--ease-sharp-out),
+              min-width 0.3s var(--ease-sharp-out),
+              max-width 0.3s var(--ease-sharp-out),
+              opacity 0.22s var(--ease-linear-fluid),
+              transform 0.3s var(--ease-sharp-out),
+              border-color 0.25s ease !important;
+}
+.queue-panel:not(.hidden) {
+  display: flex !important;
+  width: 280px !important;
+  min-width: 280px !important;
+  max-width: 280px !important;
+ margin: 0 !important;
+ opacity: 1 !important;
+ transform: translateX(0) scale(1) !important;
+ pointer-events: auto !important;
+ visibility: visible !important;
+ border: none !important;
+ border-left: 1px solid var(--glass-border) !important;
+ box-shadow: none !important;
+}
+.queue-panel.hidden {
+ display: flex !important;
+ width: 0 !important;
+ min-width: 0 !important;
+ max-width: 0 !important;
+ margin: 0 !important;
+ padding: 0 !important;
+ border: none !important;
+ border-left: 1px solid transparent !important;
+ opacity: 0 !important;
+ transform: translateX(20px) scale(0.96) !important;
+ pointer-events: none !important;
+ visibility: hidden !important;
+}
+
+.panel-header {
+  height: 36px;
+  box-sizing: border-box;
+  padding: 0 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--glass-border);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+}
+
+.queue-header-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-primary);
+}
+
+.queue-count-tag {
+  font-size: 10.5px;
+  padding: 2px 7px;
+  border-radius: var(--radius-full);
+  background: rgba(129, 140, 248, 0.18);
+  color: var(--accent-pink);
+  font-weight: 700;
+}
+
+.queue-header-actions {
+ display: flex;
+ align-items: center;
+ gap: 8px;
+}
+.queue-duration-tag {
+ font-weight: 600;
+ font-size: 11px;
+ color: var(--accent-cyan);
+ margin-right: 2px;
+}
+.queue-footer {
+ display: flex;
+ align-items: center;
+ justify-content: space-between;
+ padding-top: 10px;
+ margin-top: 6px;
+ border-top: 1px solid var(--glass-border);
+ flex-shrink: 0;
+}
+.queue-footer-right {
+ display: flex;
+ align-items: center;
+ gap: 6px;
+}
+.queue-footer .btn-icon {
+ background: rgba(255, 255, 255, 0.04);
+ border: 1px solid var(--glass-border);
+ color: var(--text-muted);
+ padding: 4px 6px;
+ border-radius: var(--radius-sm);
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ cursor: pointer;
+ transition: all 0.2s ease;
+}
+.queue-footer .btn-icon:hover {
+ color: var(--accent-pink);
+ background: var(--glass-hover);
+ border-color: rgba(255, 255, 255, 0.15);
+}
+.btn-text-action {
+ background: rgba(255, 255, 255, 0.04);
+ border: 1px solid var(--glass-border);
+ color: var(--text-muted);
+ font-size: 10.5px;
+ font-weight: 600;
+ cursor: pointer;
+ padding: 4px 8px;
+ border-radius: var(--radius-sm);
+ transition: all 0.2s ease;
+ white-space: nowrap;
+}
+.btn-text-action:hover {
+ color: var(--text-primary);
+ background: var(--glass-hover);
+ border-color: rgba(255, 255, 255, 0.15);
+}
+.btn-text-action.danger {
+ color: var(--text-muted);
+}
+.btn-text-action.danger:hover {
+ color: var(--danger-color);
+ background: rgba(251, 113, 133, 0.12);
+ border-color: rgba(251, 113, 133, 0.3);
+}
+
+.queue-content {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 4px 2px;
+  position: relative; /* Критично для правильного виртуального позиционирования */
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+.queue-item {
+  display: flex;
+  align-items: center;
+  padding: 8px 10px;
+  border-radius: var(--radius-md);
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  transition: background 0.18s ease, border-color 0.18s ease, transform 0.15s ease, opacity 0.2s ease;
+  cursor: pointer;
+  position: relative;
+  user-select: none;
+}
+
+.queue-item:hover {
+  background: var(--glass-hover);
+  border-color: rgba(255, 255, 255, 0.18);
+  transform: translateX(-2px);
+}
+
+/* Проигранный трек в режиме сохранения истории очереди */
+.queue-item.played {
+  opacity: 0.42;
+  filter: grayscale(0.5);
+}
+
+.queue-item.played:hover {
+  opacity: 0.8;
+  filter: grayscale(0);
+}
+
+.queue-item-cover {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-sm);
+  background-size: cover;
+  background-position: center;
+  background-color: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--glass-border);
+  flex-shrink: 0;
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.queue-item-cover svg {
+  width: 18px;
+  height: 18px;
+  opacity: 0.4;
+  fill: currentColor;
+}
+
+.queue-item-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  overflow: hidden;
+  flex: 1;
+  margin-right: 8px;
+}
+
+.queue-item-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.queue-item-artist-album {
+  font-size: 11px;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.queue-item-remove {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: var(--radius-sm);
+  opacity: 0.6;
+  transition: opacity 0.2s ease, color 0.2s ease, background 0.2s ease;
+}
+
+.queue-item:hover .queue-item-remove {
+  opacity: 0.9;
+}
+
+.queue-item-remove:hover {
+  opacity: 1;
+  color: var(--danger-color);
+  background: rgba(251, 113, 133, 0.12);
+}
+
+.queue-placeholder {
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ justify-content: center;
+ height: 100%;
+ padding: 20px;
+ text-align: center;
+ user-select: none;
+}
+.queue-empty-circle {
+ width: 54px;
+ height: 54px;
+ border-radius: 50%;
+ background: rgba(255, 255, 255, 0.05);
+ border: 1px solid var(--glass-border);
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ margin-bottom: 14px;
+ color: var(--text-secondary);
+ box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+.queue-empty-circle svg {
+ width: 22px;
+ height: 22px;
+}
+.queue-empty-title {
+ font-size: 14px;
+ font-weight: 700;
+ color: var(--text-primary);
+ margin-bottom: 6px;
+}
+.queue-empty-desc {
+ font-size: 11.5px;
+ line-height: 1.45;
+ color: var(--text-muted);
+ max-width: 185px;
+}
+
+/* Подсветка играющего трека в очереди */
+.queue-item.playing,
+.queue-item.active {
+  background: rgba(129, 140, 248, 0.18) !important;
+  border-color: var(--accent-pink) !important;
+  box-shadow: 0 4px 15px rgba(99, 102, 241, 0.18) !important;
+  opacity: 1 !important;
+  filter: none !important;
+}
+
+.queue-item.playing .queue-item-title,
+.queue-item.active .queue-item-title {
+  color: var(--accent-pink) !important;
+}
+
+/* Анимированный микро-эквалайзер */
+.queue-playing-bars {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  margin-left: auto;
+  margin-right: 6px;
+}
+
+.queue-playing-bars .bar {
+  width: 3px;
+  height: 12px;
+  background: var(--accent-pink);
+  border-radius: 2px;
+  animation: queueBarPulse 0.8s ease-in-out infinite alternate;
+}
+
+.queue-playing-bars .bar2 { animation-delay: 0.2s; }
+.queue-playing-bars .bar3 { animation-delay: 0.4s; }
+
+@keyframes queueBarPulse {
+  0% { height: 4px; opacity: 0.4; }
+  100% { height: 14px; opacity: 1; }
+}
+
+/* Драг-н-дроп сортировка внутри очереди */
+.queue-item.is-dragging {
+  opacity: 0.25 !important;
+}
+
+.queue-item.drop-above {
+  border-top: 2px solid var(--accent-pink) !important;
+}
+
+.queue-item.drop-below {
+  border-bottom: 2px solid var(--accent-pink) !important;
+}
+
+/* Резкая кривая анимация сброса трека вбок (без пружин) */
+@keyframes queueItemSlideOut {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) rotate(0deg) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(120%, 30px) rotate(8deg) scale(0.92);
+  }
+}
+
+.queue-item.removing {
+  animation: queueItemSlideOut 0.2s cubic-bezier(0.55, 0.085, 0.68, 0.53) forwards !important;
+  pointer-events: none !important;
+}
+
+/* ==========================================================================
+ QUEUE - STABLE FLEX LAYOUT ABOVE ALBUM VIEW
+ Очередь всегда остаётся частью workspace и только перекрывает Album Overlay
+ ========================================================================== */
+.queue-panel:not(.hidden) {
+ position: relative;
+ z-index: 450;
+}

@@ -1,0 +1,29 @@
+{
+  "$schema": "../../plugin-manifest.schema.json",
+  "manifestVersion": 1,
+  "id": "app.orphira.tools.delete-all-playlists",
+  "name": "Delete All Playlists",
+  "version": "1.0.0",
+  "description": "Deletes all Orphira playlists once when enabled.",
+  "author": "Orphira",
+  "license": "MIT",
+  "orphira": {
+    "apiVersion": 2,
+    "minimumVersion": "1.2.6"
+  },
+  "entry": "plugin.js",
+  "permissions": [
+    "playlists:read",
+    "playlists:write",
+    "ui:notifications"
+  ],
+  "network": {
+    "hosts": []
+  },
+  "contributes": {
+    "commands": [],
+    "themes": [],
+    "locales": [],
+    "views": []
+  }
+}

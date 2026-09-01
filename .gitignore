@@ -1,0 +1,71 @@
+# Dependencies
+node_modules/
+
+# Electron Builder output
+dist/
+release/
+out/
+
+# Local generated project exports
+PDF_OUTPUT/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Runtime / local application data
+config.json
+library.json
+playlists.json
+library-analytics.json
+*.backup.json
+
+# Environment files and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.cer
+*.crt
+
+# Editors and IDEs
+.vscode/
+.idea/
+*.code-workspace
+
+# Operating system metadata
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+.cache/
+coverage/
+
+# Electron / Node caches
+.npm/
+.electron/
+.electron-gyp/
+
+# Local signing and publishing material
+certificates/
+signing/
+secrets/
+
+# Local GitHub CLI configuration if ever created inside project
+.github-token
+github-token.txt

@@ -1,0 +1,446 @@
+/* ==========================================================================
+   COSMIC PLAYER - WARM IVORY SOFT LIGHT THEME
+   Тема оформления: Тёмная и Мягкая Слоновая Кость (Warm Ivory)
+   ========================================================================== */
+
+[data-theme="warm"],
+[data-theme="soft"],
+[data-theme="warm-ivory"] {
+  /* Базовые цвета мягкой молочно-кремовой палитры */
+  --bg-gradient: linear-gradient(145deg, #f8f6f0 0%, #f1eee6 50%, #e7e3d8 100%);
+  --glass-bg: rgba(255, 255, 255, 0.65);
+  --glass-border: rgba(120, 113, 108, 0.12);
+  --glass-hover: rgba(120, 113, 108, 0.06);
+  --glass-card: rgba(255, 255, 255, 0.78);
+
+  --text-primary: #1c1917;
+  --text-secondary: #57534e;
+  --text-muted: #a8a29e;
+
+  /* Тёплые благородные акценты */
+  --accent-pink: #d97706;    /* Тёплая бронза / янтарь */
+  --accent-cyan: #b45309;    /* Глубокое золото */
+  --accent-purple: #f59e0b;  /* Медовый свет */
+  --accent-amber: #d97706;   /* Янтарный */
+
+  --accent-gradient: linear-gradient(135deg, #b45309 0%, #d97706 50%, #f59e0b 100%);
+  --accent-glow: rgba(217, 119, 6, 0.22);
+  --modal-bg: rgba(28, 25, 23, 0.4);
+}
+
+/* 1. Градиентные амбиентные пятна */
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) body::before {
+  background: radial-gradient(
+    circle,
+    rgba(217, 119, 6, 0.07) 0%,
+    rgba(245, 158, 11, 0.04) 40%,
+    transparent 75%
+  ) !important;
+}
+
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) body::after {
+  background: radial-gradient(
+    circle,
+    rgba(180, 83, 9, 0.06) 0%,
+    rgba(217, 119, 6, 0.03) 45%,
+    transparent 80%
+  ) !important;
+}
+
+/* 2. Звездное небо в мягком светлом режиме */
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) .stars-canvas {
+  opacity: 0.25 !important;
+  mix-blend-mode: multiply !important;
+}
+
+/* 3. Верхняя шапка (Titlebar) и поиск */
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) .titlebar {
+  background: rgba(248, 246, 240, 0.7) !important;
+  border-bottom: 1px solid var(--glass-border) !important;
+}
+
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) .titlebar-title {
+  background: linear-gradient(135deg, #1c1917 0%, #44403c 60%, #b45309 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) .search-container {
+  background: rgba(255, 255, 255, 0.8) !important;
+  border: 1px solid rgba(120, 113, 108, 0.15) !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03) !important;
+}
+
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) .search-container:focus-within {
+  background: #ffffff !important;
+  border-color: #d97706 !important;
+  box-shadow: 0 0 12px rgba(217, 119, 6, 0.2) !important;
+}
+
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) .search-input {
+  color: #1c1917 !important;
+}
+
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) .window-btn {
+  color: #57534e !important;
+}
+
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) .window-btn:hover {
+  color: #1c1917 !important;
+}
+
+/* 4. Левый сайдбар и навигация */
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) .sidebar {
+ background: var(--glass-card) !important;
+ border: none !important;
+ border-right: 1px solid var(--glass-border) !important;
+ box-shadow: none !important;
+}
+
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) .nav-item {
+  color: #57534e !important;
+}
+
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) .nav-item:hover {
+  background: rgba(120, 113, 108, 0.05) !important;
+  color: #1c1917 !important;
+}
+
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) .nav-item.active {
+  background: linear-gradient(135deg, rgba(217, 119, 6, 0.15) 0%, rgba(217, 119, 6, 0.04) 100%) !important;
+  border: 1px solid rgba(217, 119, 6, 0.28) !important;
+  color: #b45309 !important;
+  box-shadow: 0 4px 15px rgba(217, 119, 6, 0.1) !important;
+}
+
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) .playlist-item:hover {
+  background: rgba(120, 113, 108, 0.05) !important;
+}
+
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) .playlist-item.active {
+  background: rgba(217, 119, 6, 0.12) !important;
+  border-color: rgba(217, 119, 6, 0.22) !important;
+  color: #b45309 !important;
+}
+
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) .playlist-item-title {
+  color: #1c1917 !important;
+}
+
+/* 5. Главная таблица треков */
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) .main-content {
+  background: var(--glass-card) !important;
+  border: 1px solid var(--glass-border) !important;
+  box-shadow: 0 10px 30px rgba(28, 25, 23, 0.04) !important;
+}
+
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) .tracklist-header {
+  border-bottom: 1px solid rgba(120, 113, 108, 0.12) !important;
+  color: #78716c !important;
+}
+
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) .track-row:hover {
+  background: linear-gradient(90deg, rgba(120, 113, 108, 0.05) 0%, rgba(120, 113, 108, 0.01) 250px, transparent 450px) !important;
+}
+
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) .track-row.playing {
+  background: linear-gradient(90deg, rgba(217, 119, 6, 0.12) 0%, rgba(217, 119, 6, 0.02) 280px, transparent 450px) !important;
+}
+
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) .track-row.playing .col-title {
+  color: #b45309 !important;
+  font-weight: 700 !important;
+}
+
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) .col-title {
+  color: #1c1917 !important;
+}
+
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) .col-artist,
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) .col-album {
+  color: #57534e !important;
+}
+
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) .col-index,
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) .col-time {
+  color: #78716c !important;
+}
+
+/* 6. Нижняя панель управления плеером */
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) .control-panel {
+  background: rgba(248, 246, 240, 0.88) !important;
+  border-top: 1px solid var(--glass-border) !important;
+  box-shadow: 0 -10px 30px rgba(28, 25, 23, 0.04) !important;
+}
+
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) .track-title {
+  color: #1c1917 !important;
+}
+
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) .track-artist {
+  color: #57534e !important;
+}
+
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) .control-btn {
+  color: #44403c !important;
+  fill: #44403c !important;
+}
+
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) .control-btn:hover {
+  color: #1c1917 !important;
+  fill: #1c1917 !important;
+  filter: drop-shadow(0 0 6px rgba(180, 83, 9, 0.15)) !important;
+}
+
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) .control-btn.active,
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) #btn-shuffle.active,
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) #btn-repeat.active,
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) #btn-lyrics-toggle.active,
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) #btn-eq-toggle.active {
+  color: #b45309 !important;
+  fill: #b45309 !important;
+  filter: drop-shadow(0 0 8px rgba(217, 119, 6, 0.3)) !important;
+}
+
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) input[type="range"] {
+  background: rgba(120, 113, 108, 0.15) !important;
+}
+
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) input[type="range"]::-webkit-slider-thumb {
+  background: #b45309 !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.18) !important;
+}
+
+/* 7. Панель очереди (Queue) и текста песни (Lyrics) */
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) .lyrics-panel {
+ background: var(--glass-card) !important;
+ border: 1px solid var(--glass-border) !important;
+ box-shadow: 0 10px 30px rgba(28, 25, 23, 0.04) !important;
+}
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) .queue-panel {
+ background: var(--glass-card) !important;
+ border: none !important;
+ border-left: 1px solid var(--glass-border) !important;
+ box-shadow: none !important;
+}
+
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) .karaoke-line {
+  color: #57534e !important;
+}
+
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) .karaoke-line:hover {
+  color: #1c1917 !important;
+}
+
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) .karaoke-line.active {
+  color: #b45309 !important;
+  text-shadow: 0 0 10px rgba(217, 119, 6, 0.3) !important;
+}
+
+/* 8. Модальные окна, контекстные меню и выпадающие списки */
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) .glass-modal,
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) .context-menu,
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) .speed-popup {
+  background: rgba(255, 254, 250, 0.95) !important;
+  border: 1px solid rgba(120, 113, 108, 0.15) !important;
+  box-shadow: 0 20px 50px rgba(28, 25, 23, 0.1) !important;
+  color: #1c1917 !important;
+}
+
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) .modal-header {
+  border-bottom: 1px solid rgba(120, 113, 108, 0.1) !important;
+  color: #1c1917 !important;
+}
+
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) .context-menu li {
+  color: #1c1917 !important;
+}
+
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) .context-menu li:hover {
+  background: rgba(217, 119, 6, 0.08) !important;
+  color: #b45309 !important;
+}
+
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) .dropdown-options {
+  background: #fffefb !important;
+  border: 1px solid rgba(120, 113, 108, 0.15) !important;
+  box-shadow: 0 10px 30px rgba(28, 25, 23, 0.08) !important;
+}
+
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) .dropdown-option {
+  color: #44403c !important;
+}
+
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) .dropdown-option:hover {
+  background: rgba(120, 113, 108, 0.06) !important;
+  color: #1c1917 !important;
+}
+
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) .dropdown-option.active {
+  background: rgba(217, 119, 6, 0.12) !important;
+  color: #b45309 !important;
+  border-left: 3px solid #b45309 !important;
+}
+
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) .custom-btn {
+  background: rgba(120, 113, 108, 0.06) !important;
+  border: 1px solid rgba(120, 113, 108, 0.15) !important;
+  color: #1c1917 !important;
+}
+
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) .custom-btn:hover {
+  background: rgba(217, 119, 6, 0.1) !important;
+  border-color: rgba(217, 119, 6, 0.3) !important;
+  color: #b45309 !important;
+}
+
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) .cosmic-tooltip {
+  background: #27272a !important;
+  color: #ffffff !important;
+}
+
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) .cosmic-toast {
+  background: #fffefb !important;
+  color: #1c1917 !important;
+  border: 1px solid rgba(120, 113, 108, 0.15) !important;
+  box-shadow: 0 10px 30px rgba(28, 25, 23, 0.08) !important;
+}
+
+/* 9. Полноэкранный оверлей (Fullscreen Overlay) в мягком режиме */
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) .fullscreen-overlay {
+  background: linear-gradient(145deg, #f8f6f0 0%, #eeebe1 50%, #e2ded2 100%) !important;
+}
+
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) .fullscreen-title {
+  color: #1c1917 !important;
+}
+
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) .fullscreen-artist {
+  color: #57534e !important;
+}
+
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) .fullscreen-close-btn {
+  background: rgba(120, 113, 108, 0.08) !important;
+  border: 1px solid rgba(120, 113, 108, 0.15) !important;
+  color: #1c1917 !important;
+}
+
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) .fullscreen-close-btn:hover {
+  background: rgba(120, 113, 108, 0.15) !important;
+}
+
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) .fullscreen-lyrics-content .karaoke-line {
+  color: #78716c !important;
+}
+
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) .fullscreen-lyrics-content .karaoke-line.active {
+  color: #b45309 !important;
+}
+
+/* 10. ЭКВАЛАЙЗЕР В МЯГКОМ РЕЖИМЕ (STUDIO CONSOLE SOFT) */
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) .eq-modal-content {
+  background: #fffefb !important;
+  border: 1px solid rgba(120, 113, 108, 0.15) !important;
+  box-shadow: 0 25px 60px rgba(28, 25, 23, 0.12) !important;
+  color: #1c1917 !important;
+}
+
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) .eq-canvas-wrapper {
+  background: #fffefb !important;
+  border-bottom: 1px solid rgba(120, 113, 108, 0.1) !important;
+}
+
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) canvas#eq-canvas {
+  filter: invert(0.92) hue-rotate(160deg) !important;
+}
+
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) .eq-mode-btn {
+  background: rgba(120, 113, 108, 0.08) !important;
+  border: 1px solid rgba(120, 113, 108, 0.15) !important;
+  color: #44403c !important;
+}
+
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) .eq-mid-toolbar {
+  background: #f5f2e9 !important;
+  border-bottom: 1px solid rgba(120, 113, 108, 0.1) !important;
+}
+
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) .dropdown-selected#eq-preset-selected {
+  background: #ffffff !important;
+  border: 1px solid rgba(120, 113, 108, 0.18) !important;
+  color: #1c1917 !important;
+}
+
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) .eq-qfactor-box {
+  background: rgba(120, 113, 108, 0.05) !important;
+  border: 1px solid rgba(120, 113, 108, 0.12) !important;
+}
+
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) .eq-q-label,
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) .eq-q-btn {
+  color: #57534e !important;
+}
+
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) .eq-q-btn.active,
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) .eq-q-btn:hover {
+  background: rgba(120, 113, 108, 0.1) !important;
+  color: #b45309 !important;
+}
+
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) .eq-console-body {
+  background: #f8f6f0 !important;
+}
+
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) input[type="range"].eq-fader {
+  background: rgba(120, 113, 108, 0.12) !important;
+  border: 1px solid rgba(120, 113, 108, 0.18) !important;
+}
+
+/* 11. Видимость времени плеера в мягкой теме */
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) .time-current,
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) .time-total,
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) .fullscreen-progress-wrapper .time-current,
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) .fullscreen-progress-wrapper .time-total {
+  color: #44403c !important;
+  font-weight: 600 !important;
+  opacity: 1 !important;
+}
+
+/* Адаптация вкладок библиотеки и заголовков поиска в теме Warm Ivory */
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) .library-tabs {
+  background: rgba(255, 255, 255, 0.45) !important;
+  border-bottom: 1px solid var(--glass-border) !important;
+}
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) .library-tab {
+  color: #57534e !important;
+}
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) .library-tab:hover {
+  background: rgba(120, 113, 108, 0.08) !important;
+  color: #1c1917 !important;
+}
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) .library-tab.active {
+  background: rgba(217, 119, 6, 0.15) !important;
+  border-color: #b45309 !important;
+  color: #b45309 !important;
+  box-shadow: 0 2px 10px rgba(217, 119, 6, 0.15) !important;
+}
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) .tracklist-section-title {
+  background: rgba(120, 113, 108, 0.05) !important;
+  color: #b45309 !important;
+  border-bottom: 1px solid var(--glass-border) !important;
+}
+
+/* Поиск по коду (Ctrl + F): [data-theme="warm"] */
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) .connected-folder-item .remove-folder-btn {
+  background: rgba(225, 29, 72, 0.1) !important;
+  border: 1px solid rgba(225, 29, 72, 0.28) !important;
+  color: #e11d48 !important;
+}
+
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) .connected-folder-item .remove-folder-btn:hover {
+  background: #e11d48 !important;
+  border-color: #e11d48 !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 14px rgba(225, 29, 72, 0.35) !important;
+}
+

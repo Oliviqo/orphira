@@ -1,0 +1,1229 @@
+/* ==========================================================================
+ COSMIC PLAYER - ALBUM OVERLAY VIEW
+ ========================================================================== */
+
+#album-overlay {
+ position: absolute;
+ inset: 0;
+ z-index: 400;
+ background: var(--bg-gradient);
+ display: flex;
+ flex-direction: column;
+ padding:
+ clamp(24px, 4.5vh, 58px)
+ clamp(28px, 4.5vw, 82px)
+ clamp(26px, 4.5vh, 60px)
+ clamp(28px, 4.5vw, 82px);
+ box-sizing: border-box;
+ opacity: 0;
+ visibility: hidden;
+ overflow: hidden;
+
+ --album-color: var(--accent-pink);
+ --album-color-rgb: 129, 140, 248;
+ --album-panel: var(--glass-card);
+ --album-panel-rgb: 20, 22, 30;
+ --album-accent: var(--accent-pink);
+ --album-accent-rgb: 129, 140, 248;
+ --album-accent-text: #ffffff;
+ --album-ambient: var(--accent-glow);
+  --album-panel-gap: clamp(6px, 0.55vw, 10px);
+
+ transition:
+ opacity 0.16s cubic-bezier(0.16, 1, 0.3, 1),
+ visibility 0.16s allow-discrete;
+}
+
+#album-overlay:not(.hidden) {
+ opacity: 1;
+ visibility: visible;
+}
+
+.album-ambient-light {
+  position: absolute;
+  top: -8%;
+  left: 4%;
+  width: min(48vw, 720px);
+  height: min(70vh, 720px);
+  border-radius: 50%;
+  background:
+    radial-gradient(
+      circle,
+      var(--album-ambient) 0%,
+      transparent 70%
+    );
+  filter: blur(85px);
+  opacity: 0.92;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.album-top-bar {
+ position: relative;
+ z-index: 10;
+ display: flex;
+ align-items: center;
+ justify-content: space-between;
+ gap: 20px;
+ min-height: 38px;
+ margin-bottom: clamp(18px, 2.7vh, 34px);
+ flex-shrink: 0;
+}
+
+.album-back-btn {
+ width: 40px;
+ height: 40px;
+ padding: 0;
+ border-radius: 50%;
+ background: rgba(255, 255, 255, 0.034);
+ border: 1px solid rgba(255, 255, 255, 0.062);
+ color: var(--text-primary);
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ cursor: pointer;
+ flex-shrink: 0;
+ transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.album-back-btn:hover {
+ background: rgba(255, 255, 255, 0.2);
+ border-color: rgba(255, 255, 255, 0.062);
+ color: var(--text-primary);
+ transform: scale(1.08);
+}
+
+.album-back-btn svg {
+ width: 24px;
+ height: 24px;
+ opacity: 0.4;
+ transition: opacity 0.2s ease;
+}
+
+.album-back-btn:hover svg {
+ opacity: 1;
+}
+
+.album-actions-group {
+ display: flex;
+ align-items: center;
+ justify-content: flex-end;
+ gap: 8px;
+ min-width: 0;
+}
+
+.album-action-btn {
+ display: inline-flex;
+ align-items: center;
+ justify-content: center;
+ gap: 6px;
+ min-height: 34px;
+ background: var(--glass-bg);
+ border: 1px solid var(--glass-border);
+ color: var(--text-primary);
+ padding: 7px 13px;
+ border-radius: var(--radius-md);
+ font-size: 12px;
+ font-weight: 600;
+ cursor: pointer;
+ white-space: nowrap;
+ transition:
+  background 0.18s ease,
+  border-color 0.18s ease,
+  color 0.18s ease,
+  transform 0.18s ease,
+  filter 0.18s ease;
+}
+
+.album-action-btn:hover {
+ background: var(--glass-hover);
+ border-color: var(--album-accent);
+ color: var(--album-accent);
+}
+
+.album-action-btn.primary {
+ background: var(--album-accent);
+ border-color: var(--album-accent);
+ color: var(--album-accent-text);
+}
+
+.album-action-btn.primary:hover {
+ color: var(--album-accent-text);
+ filter: brightness(1.06);
+ transform: scale(1.025);
+}
+
+.album-btn-group {
+ display: flex;
+ align-items: stretch;
+ background: var(--glass-bg);
+ border: 1px solid var(--glass-border);
+ border-radius: var(--radius-md);
+ overflow: hidden;
+ flex-shrink: 0;
+}
+
+.album-btn-group .album-action-btn {
+ min-width: 38px;
+ padding-left: 10px;
+ padding-right: 10px;
+ border: 0;
+ border-radius: 0;
+ border-right: 1px solid var(--glass-border);
+}
+
+.album-btn-group .album-action-btn:last-child {
+ border-right: 0;
+}
+
+.album-sort-wrapper {
+ position: relative;
+ display: flex;
+ align-items: center;
+ flex-shrink: 0;
+}
+
+.album-body-grid {
+ position: relative;
+ z-index: 5;
+ flex: 0 1 auto;
+ display: grid;
+ grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+ gap: clamp(6px, 0.45vw, 9px);
+ width: min(90vw, 1480px);
+ height: min(68vh, 650px);
+ min-width: 0;
+ min-height: 0;
+ margin: auto;
+ align-self: center;
+ align-items: stretch;
+}
+
+.album-left-panel {
+ position: relative;
+ min-width: 0;
+ min-height: 0;
+ background: var(--album-panel);
+ border: 1px solid var(--glass-border);
+ border-radius: var(--radius-lg);
+ padding: clamp(18px, 2vw, 28px);
+ display: flex;
+ flex-direction: column;
+ align-items: flex-start;
+ box-sizing: border-box;
+ overflow-y: auto;
+ backdrop-filter: blur(25px);
+ -webkit-backdrop-filter: blur(25px);
+ box-shadow:
+  0 20px 55px rgba(0, 0, 0, 0.18),
+  inset 0 1px 0 rgba(255, 255, 255, 0.03);
+}
+
+.album-left-panel::before {
+ content: "";
+ position: absolute;
+ inset: 0;
+ border-radius: inherit;
+ background:
+  linear-gradient(
+   145deg,
+   rgba(var(--album-color-rgb), 0.07),
+   transparent 48%
+  );
+ pointer-events: none;
+}
+
+.album-cover-box {
+ position: relative;
+ z-index: 1;
+ width: min(100%, 43vh);
+ max-width: 100%;
+ aspect-ratio: 1 / 1;
+ align-self: center;
+ border-radius: var(--radius-md);
+ background-size: cover;
+ background-position: center;
+ background-repeat: no-repeat;
+ background-color: var(--glass-border);
+ box-shadow:
+  0 18px 45px rgba(0, 0, 0, 0.34),
+  0 0 34px rgba(var(--album-color-rgb), 0.10);
+ margin-bottom: clamp(16px, 2.2vh, 24px);
+ flex-shrink: 0;
+ overflow: hidden;
+}
+
+.album-cover-box.default-cover {
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ background: var(--glass-bg);
+ color: var(--text-muted);
+}
+
+.album-meta-stack {
+ position: relative;
+ z-index: 1;
+ width: 100%;
+ display: flex;
+ flex-direction: column;
+ gap: 5px;
+ text-align: left;
+}
+
+.album-title-text {
+ font-size: clamp(19px, 2.5vh, 27px);
+ font-weight: 800;
+ color: var(--text-primary);
+ line-height: 1.16;
+ word-break: break-word;
+}
+
+.album-artist-text {
+ font-size: clamp(13px, 1.6vh, 16px);
+ font-weight: 650;
+ color: var(--album-accent);
+ margin-bottom: 7px;
+}
+
+.album-info-line {
+ font-size: clamp(11px, 1.25vh, 12.5px);
+ color: var(--text-muted);
+ font-weight: 500;
+ line-height: 1.45;
+ white-space: normal;
+ overflow-wrap: anywhere;
+}
+
+.album-right-panel {
+ min-width: 0;
+ min-height: 0;
+ background: var(--glass-card);
+ border: 1px solid var(--glass-border);
+ border-radius: var(--radius-lg);
+ display: flex;
+ flex-direction: column;
+ overflow: hidden;
+ backdrop-filter: blur(20px);
+ -webkit-backdrop-filter: blur(20px);
+ box-shadow: 0 20px 55px rgba(0, 0, 0, 0.14);
+}
+
+.album-tracklist-container {
+ flex: 1;
+ display: flex;
+ flex-direction: column;
+ min-width: 0;
+ min-height: 0;
+}
+
+.album-tracklist-header {
+ display: grid;
+ grid-template-columns:
+  minmax(42px, 0.4fr)
+  minmax(160px, 3fr)
+  minmax(120px, 2fr)
+  minmax(62px, 0.6fr);
+ align-items: center;
+ padding: 11px 16px;
+ border-bottom: 1px solid var(--glass-border);
+ font-size: 11px;
+ font-weight: 650;
+ color: var(--text-muted);
+ text-transform: lowercase;
+ background: rgba(255, 255, 255, 0.018);
+ flex-shrink: 0;
+}
+
+.album-tracklist-body {
+ position: relative;
+ flex: 1;
+ min-height: 0;
+ overflow-y: auto;
+ overflow-x: hidden;
+ padding: 5px 0;
+}
+
+.album-disc-divider {
+ padding: 12px 18px 7px;
+ font-size: 10.5px;
+ font-weight: 800;
+ color: var(--album-accent);
+ letter-spacing: 1.25px;
+ text-transform: uppercase;
+ border-bottom: 1px solid var(--glass-border);
+ background: rgba(var(--album-accent-rgb), 0.035);
+}
+
+.album-track-row {
+ display: grid;
+ grid-template-columns:
+  minmax(42px, 0.4fr)
+  minmax(160px, 3fr)
+  minmax(120px, 2fr)
+  minmax(62px, 0.6fr);
+ align-items: center;
+ min-height: 44px;
+ padding: 7px 16px;
+ margin: 0 5px;
+ box-sizing: border-box;
+ border-radius: var(--radius-sm);
+ font-size: 13.5px;
+ cursor: pointer;
+ transition:
+  background 0.15s ease,
+  color 0.15s ease;
+}
+
+.album-track-row:hover {
+ background: var(--glass-hover);
+}
+
+.album-track-row.playing {
+ background: rgba(var(--album-accent-rgb), 0.13);
+}
+
+.album-track-row.playing .col-title {
+ color: var(--album-accent);
+ font-weight: 700;
+}
+
+.album-track-row.playing .col-index {
+ color: var(--album-accent);
+}
+
+.album-track-row .col-index {
+ color: var(--text-muted);
+ font-size: 12px;
+}
+
+.album-track-row .col-title {
+ color: var(--text-primary);
+ font-weight: 600;
+ white-space: nowrap;
+ overflow: hidden;
+ text-overflow: ellipsis;
+}
+
+.album-track-row .col-artist {
+ color: var(--text-secondary);
+ white-space: nowrap;
+ overflow: hidden;
+ text-overflow: ellipsis;
+}
+
+.album-track-row .col-time {
+ color: var(--text-muted);
+ font-size: 12.5px;
+ text-align: right;
+}
+
+#album-overlay .sort-popup-menu {
+ --album-sort-accent: var(--album-accent);
+}
+
+#album-overlay .sort-menu-item:hover {
+ color: var(--album-accent);
+}
+
+#album-overlay .sort-menu-item .item-check {
+ color: var(--album-accent);
+}
+
+@media (max-width: 1250px), (max-height: 680px) {
+ #album-overlay {
+ padding:
+ clamp(15px, 2.7vh, 26px)
+ clamp(18px, 2.6vw, 36px)
+ clamp(16px, 2.7vh, 28px)
+ clamp(18px, 2.6vw, 36px);
+ }
+
+ .album-top-bar {
+  margin-bottom: clamp(10px, 1.8vh, 18px);
+  gap: 10px;
+ }
+
+ .album-body-grid {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  gap: clamp(14px, 1.8vw, 24px);
+ }
+
+ .album-left-panel {
+  padding: clamp(12px, 1.5vw, 18px);
+ }
+
+ .album-cover-box {
+  width: min(100%, 38vh);
+  margin-bottom: clamp(10px, 1.5vh, 15px);
+ }
+
+ .album-title-text {
+  font-size: clamp(17px, 2.3vh, 22px);
+ }
+
+ .album-actions-group {
+  gap: 5px;
+ }
+
+ .album-action-btn {
+  padding: 6px 9px;
+  font-size: 11px;
+ }
+
+ .album-btn-group .album-action-btn {
+  min-width: 34px;
+  padding-left: 8px;
+  padding-right: 8px;
+ }
+}
+
+@media (max-width: 1050px) {
+ #album-overlay {
+ padding-left: 18px;
+ padding-right: 18px;
+ }
+
+ .album-body-grid {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  gap: 14px;
+ }
+
+ .album-actions-group {
+  gap: 4px;
+ }
+
+ .album-action-btn {
+  padding-left: 7px;
+  padding-right: 7px;
+ }
+
+ .album-tracklist-header,
+ .album-track-row {
+  grid-template-columns:
+   38px
+   minmax(130px, 3fr)
+   minmax(90px, 1.5fr)
+   56px;
+  padding-left: 10px;
+  padding-right: 10px;
+ }
+}
+
+.album-body-grid > .album-left-panel,
+.album-body-grid > .album-right-panel {
+ border-radius: 14px;
+}
+
+/* ==========================================================================
+ ALBUM VIEW - ACTUAL HTML STRUCTURE LAYOUT
+ Две равновысокие панели с компактным зазором и внешними actions
+ ========================================================================== */
+
+.album-top-nav {
+ position: relative;
+ z-index: 10;
+ display: flex;
+ align-items: center;
+ min-height: 38px;
+ margin-bottom: clamp(6px, 1vh, 12px);
+ flex-shrink: 0;
+}
+
+.album-grid-layout {
+ position: relative;
+ z-index: 5;
+ width: min(94vw, 1560px);
+ height: min(74vh, 720px);
+ margin: auto;
+ align-self: center;
+ display: grid;
+ grid-template-columns: minmax(250px, 1fr) minmax(0, 2fr);
+ gap: var(--album-panel-gap, clamp(6px, 0.55vw, 10px));
+ align-items: stretch;
+ min-width: 0;
+ min-height: 0;
+}
+
+.album-grid-layout > .album-left-panel {
+ width: 100%;
+ height: 100%;
+ min-width: 0;
+ min-height: 0;
+}
+
+.album-right-col {
+ position: relative;
+ width: 100%;
+ height: 100%;
+ min-width: 0;
+ min-height: 0;
+ display: block;
+}
+
+.album-right-col > .album-actions-group {
+ position: absolute;
+ right: 0;
+ bottom: calc(100% + 8px);
+ z-index: 20;
+ min-height: 34px;
+ margin: 0;
+ display: flex;
+ align-items: center;
+ justify-content: flex-end;
+}
+
+.album-right-col > .album-right-panel {
+ width: 100%;
+ height: 100%;
+ min-width: 0;
+ min-height: 0;
+}
+
+.album-grid-layout .album-cover-box {
+ width: min(100%, 45vh);
+ max-height: min(45vh, 460px);
+ aspect-ratio: 1 / 1;
+}
+
+@media (max-width: 1250px), (max-height: 680px) {
+ .album-top-nav {
+  margin-bottom: 4px;
+ }
+
+ .album-grid-layout {
+  width: min(97vw, 1560px);
+  height: min(78vh, 720px);
+  grid-template-columns: minmax(220px, 1fr) minmax(0, 2fr);
+  gap: 6px;
+ }
+
+ .album-grid-layout .album-cover-box {
+  width: min(100%, 39vh);
+  max-height: 39vh;
+ }
+
+ .album-right-col > .album-actions-group {
+  bottom: calc(100% + 5px);
+ }
+}
+
+@media (max-width: 1050px) {
+ .album-grid-layout {
+  width: 100%;
+  grid-template-columns: minmax(210px, 1fr) minmax(0, 2fr);
+  gap: 5px;
+ }
+
+ .album-right-col > .album-actions-group {
+  gap: 4px;
+ }
+}
+
+/* ==========================================================================
+ ALBUM VIEW - COVER COLOR COMPOSITION
+ Локальная палитра обложки, ambient light и позиционирование actions
+ ========================================================================== */
+
+.album-right-col > .album-actions-group {
+ left: 0;
+ right: auto;
+ justify-content: flex-start;
+}
+
+#album-overlay.album-has-cover-palette .album-left-panel {
+ background-color: var(--album-panel);
+ background-image:
+  radial-gradient(
+   ellipse 120% 72% at 50% 15%,
+   rgba(var(--album-color-rgb), 0.34) 0%,
+   rgba(var(--album-color-rgb), 0.22) 30%,
+   rgba(var(--album-color-rgb), 0.10) 52%,
+   rgba(var(--album-color-rgb), 0.025) 72%,
+   transparent 88%
+  );
+ border-color: rgba(var(--album-accent-rgb), 0.20);
+}
+#album-overlay.album-has-cover-palette .album-left-panel::before {
+ background:
+  radial-gradient(
+   circle at 35% 18%,
+   rgba(var(--album-color-rgb), 0.12) 0%,
+   rgba(var(--album-color-rgb), 0.045) 42%,
+   transparent 74%
+  );
+}
+
+#album-overlay.album-has-cover-palette .album-right-panel {
+ background: var(--glass-card);
+ border-color: var(--glass-border);
+}
+
+#album-overlay.album-has-cover-palette .album-ambient-light {
+  top: -22%;
+  left: -8%;
+  width: min(82vw, 1380px);
+  height: min(88vh, 920px);
+  border-radius: 42% 58% 64% 36% / 48% 38% 62% 52%;
+  background:
+    radial-gradient(
+      ellipse at 34% 30%,
+      rgba(var(--album-ambient-rgb), 0.52) 0%,
+      rgba(var(--album-ambient-rgb), 0.32) 20%,
+      rgba(var(--album-ambient-rgb), 0.15) 43%,
+      transparent 72%
+    );
+  filter: blur(78px);
+  opacity: 0.96;
+  transform: translate3d(0, 0, 0);
+  pointer-events: none;
+  z-index: 0;
+}
+
+#album-overlay.album-has-cover-palette .album-cover-box {
+ box-shadow:
+  0 18px 45px rgba(0, 0, 0, 0.34),
+  0 0 50px rgba(var(--album-color-rgb), 0.13);
+}
+
+#album-overlay.album-has-cover-palette .album-artist-text,
+#album-overlay.album-has-cover-palette .album-back-btn:hover,
+#album-overlay.album-has-cover-palette .album-track-row.playing .col-title,
+#album-overlay.album-has-cover-palette .album-track-row.playing .col-index,
+#album-overlay.album-has-cover-palette .album-disc-divider,
+#album-overlay.album-has-cover-palette .sort-menu-item:hover,
+#album-overlay.album-has-cover-palette .sort-menu-item .item-check {
+ color: var(--album-accent);
+}
+
+#album-overlay.album-has-cover-palette .album-track-row.playing {
+ background: rgba(var(--album-accent-rgb), 0.13);
+}
+
+#album-overlay.album-has-cover-palette .album-action-btn:hover {
+ border-color: var(--album-accent);
+ color: var(--album-accent);
+}
+
+#album-overlay.album-has-cover-palette .album-action-btn.primary {
+ background: var(--album-accent);
+ border-color: var(--album-accent);
+ color: var(--album-accent-text);
+}
+
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) #album-overlay.album-has-cover-palette .album-left-panel {
+ background:
+  linear-gradient(
+   145deg,
+   rgba(var(--album-color-rgb), 0.085) 0%,
+   rgba(var(--album-color-rgb), 0.035) 52%,
+   rgba(var(--album-panel-rgb), 0.97) 100%
+  ),
+  var(--album-panel);
+ border-color: rgba(var(--album-accent-rgb), 0.14);
+}
+
+[data-theme="light"] #album-overlay.album-has-cover-palette .album-ambient-light,
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) #album-overlay.album-has-cover-palette .album-ambient-light {
+ opacity: 0.58;
+}
+
+/* ==========================================================================
+ ALBUM VIEW - SUBTLE SURFACE DEPTH
+ Почти незаметные тени панелей и локальный ambient вокруг обложки
+ ========================================================================== */
+
+#album-overlay .album-left-panel,
+#album-overlay.album-has-cover-palette .album-left-panel {
+ box-shadow:
+  0 7px 22px rgba(0, 0, 0, 0.045),
+  0 1px 3px rgba(0, 0, 0, 0.025);
+}
+
+#album-overlay .album-right-panel,
+#album-overlay.album-has-cover-palette .album-right-panel {
+ box-shadow:
+  0 7px 22px rgba(0, 0, 0, 0.04),
+  0 1px 3px rgba(0, 0, 0, 0.02);
+}
+
+#album-overlay .album-cover-box {
+ box-shadow:
+  0 7px 18px rgba(0, 0, 0, 0.09);
+}
+
+#album-overlay.album-has-cover-palette .album-cover-box {
+ box-shadow:
+  0 7px 18px rgba(0, 0, 0, 0.075),
+  0 0 34px rgba(var(--album-color-rgb), 0.075);
+}
+
+[data-theme="light"] #album-overlay .album-left-panel,
+[data-theme="light"] #album-overlay .album-right-panel,
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) #album-overlay .album-left-panel,
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) #album-overlay .album-right-panel {
+ box-shadow:
+  0 7px 22px rgba(30, 41, 59, 0.035),
+  0 1px 3px rgba(30, 41, 59, 0.018);
+}
+
+/* ==========================================================================
+ ALBUM VIEW - COVER COLOR FLOW & PLAYING INDICATOR
+ Локализуем цвет возле обложки и упрощаем подсветку активного трека
+ ========================================================================== */
+
+#album-overlay.album-has-cover-palette .album-left-panel {
+ background:
+  radial-gradient(
+   ellipse 105% 68% at 50% 20%,
+   rgba(var(--album-color-rgb), 0.24) 0%,
+   rgba(var(--album-color-rgb), 0.14) 30%,
+   rgba(var(--album-color-rgb), 0.055) 56%,
+   transparent 78%
+  ),
+  linear-gradient(
+   to bottom,
+   rgba(var(--album-panel-rgb), 0.98) 0%,
+   rgba(var(--album-panel-rgb), 0.94) 48%,
+   rgba(var(--album-panel-rgb), 0.72) 68%,
+   var(--glass-card) 100%
+  ),
+  var(--album-panel);
+}
+
+#album-overlay.album-has-cover-palette .album-left-panel::before {
+ background:
+  linear-gradient(
+   155deg,
+   rgba(var(--album-color-rgb), 0.075) 0%,
+   rgba(var(--album-color-rgb), 0.025) 34%,
+   transparent 64%
+  );
+}
+
+.album-track-row {
+ position: relative;
+}
+
+.album-track-row.playing,
+#album-overlay.album-has-cover-palette .album-track-row.playing {
+ background: rgba(var(--album-accent-rgb), 0.035);
+}
+
+.album-track-row.playing::before {
+ content: "";
+ position: absolute;
+ left: 0;
+ top: 9px;
+ bottom: 9px;
+ width: 2px;
+ border-radius: 2px;
+ background: var(--album-accent);
+ pointer-events: none;
+}
+
+.album-track-row.playing .col-title,
+.album-track-row.playing .col-index {
+ color: var(--album-accent);
+}
+
+[data-theme="light"] #album-overlay.album-has-cover-palette .album-left-panel {
+ background:
+  radial-gradient(
+   ellipse 105% 68% at 50% 20%,
+   rgba(var(--album-color-rgb), 0.17) 0%,
+   rgba(var(--album-color-rgb), 0.095) 30%,
+   rgba(var(--album-color-rgb), 0.032) 56%,
+   transparent 78%
+  ),
+  linear-gradient(
+   to bottom,
+   rgba(var(--album-panel-rgb), 0.98) 0%,
+   rgba(var(--album-panel-rgb), 0.95) 48%,
+   rgba(var(--album-panel-rgb), 0.76) 68%,
+   var(--glass-card) 100%
+  ),
+  var(--album-panel);
+}
+
+/* ==========================================================================
+ ALBUM VIEW - PASTEL COVER TOOLBAR
+ Пастельная локальная палитра всех действий альбома
+ ========================================================================== */
+
+#album-overlay.album-has-cover-palette .album-actions-group .album-action-btn {
+ background: rgba(var(--album-accent-rgb), 0.10);
+ border-color: rgba(var(--album-accent-rgb), 0.24);
+ color: var(--album-accent);
+}
+
+#album-overlay.album-has-cover-palette .album-actions-group .album-action-btn:hover {
+ background: rgba(var(--album-accent-rgb), 0.18);
+ border-color: rgba(var(--album-accent-rgb), 0.42);
+ color: var(--album-accent);
+}
+
+#album-overlay.album-has-cover-palette .album-actions-group .album-action-btn.primary {
+ background: var(--album-accent);
+ border-color: var(--album-accent);
+ color: var(--album-accent-text);
+}
+
+#album-overlay.album-has-cover-palette .album-actions-group .album-action-btn.primary:hover {
+ background: var(--album-accent);
+ border-color: var(--album-accent);
+ color: var(--album-accent-text);
+ filter: brightness(1.04);
+}
+
+#album-overlay.album-has-cover-palette .album-btn-group {
+ background: rgba(var(--album-accent-rgb), 0.08);
+ border-color: rgba(var(--album-accent-rgb), 0.22);
+}
+
+#album-overlay.album-has-cover-palette .album-btn-group .album-action-btn {
+ background: transparent;
+ border-right-color: rgba(var(--album-accent-rgb), 0.20);
+}
+
+#album-overlay.album-has-cover-palette .album-btn-group .album-action-btn:hover {
+ background: rgba(var(--album-accent-rgb), 0.16);
+}
+
+[data-theme="light"] #album-overlay.album-has-cover-palette .album-actions-group .album-action-btn:not(.primary),
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) #album-overlay.album-has-cover-palette .album-actions-group .album-action-btn:not(.primary) {
+ background: rgba(var(--album-accent-rgb), 0.12);
+ border-color: rgba(var(--album-accent-rgb), 0.30);
+}
+
+[data-theme="light"] #album-overlay.album-has-cover-palette .album-actions-group .album-action-btn:not(.primary):hover,
+:is([data-theme="warm"], [data-theme="soft"], [data-theme="warm-ivory"]) #album-overlay.album-has-cover-palette .album-actions-group .album-action-btn:not(.primary):hover {
+ background: rgba(var(--album-accent-rgb), 0.20);
+ border-color: rgba(var(--album-accent-rgb), 0.46);
+}
+
+/* ==========================================================================
+ ALBUM VIEW - FAST OPACITY LIFECYCLE
+ Быстрое проявление/исчезновение без движения геометрии
+ ========================================================================== */
+#album-overlay {
+ opacity: 0;
+ visibility: hidden;
+ pointer-events: none;
+ transition:
+ opacity 0.13s ease,
+ visibility 0.13s allow-discrete,
+ padding-right 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#album-overlay.album-open:not(.hidden) {
+ opacity: 1;
+ visibility: visible;
+ pointer-events: auto;
+}
+
+#album-overlay.album-closing:not(.hidden) {
+ opacity: 0;
+ visibility: visible;
+ pointer-events: none;
+}
+
+@starting-style {
+ #album-overlay.album-open:not(.hidden) {
+ opacity: 0;
+ }
+}
+
+/* ==========================================================================
+ ALBUM VIEW - SYMMETRIC OVERLAY LIFECYCLE
+ Симметричный вход/выход без масштабирования геометрии основного интерфейса
+ ========================================================================== */
+#album-overlay {
+ transform: translate3d(0, 10px, 0);
+ opacity: 0;
+ visibility: hidden;
+ pointer-events: none;
+ will-change: transform, opacity;
+ transition:
+ transform 0.16s cubic-bezier(0.16, 1, 0.3, 1),
+ opacity 0.16s ease,
+ visibility 0.16s allow-discrete;
+}
+
+#album-overlay.album-opening:not(.hidden) {
+ transform: translate3d(0, 10px, 0);
+ opacity: 0;
+ visibility: visible;
+ pointer-events: none;
+}
+
+#album-overlay.album-open:not(.hidden) {
+ transform: translate3d(0, 0, 0);
+ opacity: 1;
+ visibility: visible;
+ pointer-events: auto;
+}
+
+#album-overlay.album-closing:not(.hidden) {
+ transform: translate3d(0, 10px, 0);
+ opacity: 0;
+ visibility: visible;
+ pointer-events: none;
+}
+
+/* ==========================================================================
+ ALBUM VIEW - ANCHORED LEFT EDGE / QUEUE-CONTROLLED RIGHT EDGE
+ Левая граница закреплена, Queue сокращает исключительно правую панель
+ ========================================================================== */
+.album-grid-layout {
+ --album-layout-width: min(94vw, 1560px);
+ --album-effective-gap: var(--album-panel-gap, 8px);
+ --album-left-width: calc(
+ (var(--album-layout-width) - var(--album-effective-gap)) / 3
+ );
+ --album-outer-left: calc(
+ (100% - var(--album-layout-width)) / 2
+ );
+
+ width: var(--album-layout-width);
+ grid-template-columns:
+ var(--album-left-width)
+ minmax(0, 1fr);
+
+ align-self: flex-start;
+ margin-top: auto;
+ margin-bottom: auto;
+ margin-left: var(--album-outer-left);
+ margin-right: 0;
+
+ transition:
+ width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.workspace:has(.queue-panel:not(.hidden)) #album-overlay .album-grid-layout {
+ width: calc(
+ var(--album-layout-width)
+ - max(
+ 0px,
+ calc(
+ 280px
+  + (var(--album-effective-gap) * 2)
+  - ((100% - var(--album-layout-width)) / 2)
+ )
+ )
+ );
+ margin-left: var(--album-outer-left);
+ margin-right: 0;
+}
+
+@media (max-width: 1250px), (max-height: 680px) {
+ .album-grid-layout {
+ --album-layout-width: min(97vw, 1560px);
+ --album-effective-gap: 6px;
+ --album-left-width: calc(
+ (var(--album-layout-width) - var(--album-effective-gap)) / 3
+ );
+ --album-outer-left: calc(
+ (100% - var(--album-layout-width)) / 2
+ );
+ }
+}
+
+@media (max-width: 1050px) {
+ .album-grid-layout {
+ --album-layout-width: 100%;
+ --album-effective-gap: 5px;
+ --album-left-width: calc(
+ (var(--album-layout-width) - var(--album-effective-gap)) / 3
+ );
+ --album-outer-left: 0px;
+ }
+}
+
+/* ==========================================================================
+ ALBUM VIEW - QUEUE ACTION ICONS
+ Компактные семантические кнопки Play Next / Add to Queue
+ ========================================================================== */
+.album-queue-action-btn {
+ width: 38px;
+ min-width: 38px;
+ height: 34px;
+ padding: 0 !important;
+ flex-shrink: 0;
+}
+
+.album-queue-action-btn .icon {
+ width: 18px !important;
+ height: 18px !important;
+ fill: none !important;
+ stroke: currentColor !important;
+ transition:
+ transform 0.18s cubic-bezier(0.16, 1, 0.3, 1),
+ opacity 0.18s ease;
+}
+
+.album-queue-action-btn:hover .icon {
+ transform: scale(1.08);
+}
+
+.album-queue-action-btn:active .icon {
+ transform: scale(0.94);
+}
+
+/* ==========================================================================
+ ALBUM VIEW - BOTTOM ACTION TOOLBAR
+ Действия перенесены вниз, панели подняты, сортировка закреплена справа
+ ========================================================================== */
+.album-grid-layout {
+ transform: translateY(-18px);
+}
+
+.album-right-col > .album-actions-group {
+ left: 0;
+ right: 0;
+ top: calc(100% + 8px);
+ bottom: auto;
+ min-height: 34px;
+ display: flex;
+ align-items: center;
+ justify-content: flex-start;
+}
+
+.album-right-col > .album-actions-group .album-sort-wrapper {
+ position: absolute;
+ right: 0;
+ top: 50%;
+ transform: translateY(-50%);
+ margin: 0;
+}
+
+#album-overlay #album-btn-sort {
+ width: 32px;
+ height: 32px;
+ padding: 0;
+ flex-shrink: 0;
+}
+
+#album-overlay #album-sort-popup {
+ top: auto;
+ bottom: calc(100% + 8px);
+ left: auto;
+ right: 0;
+}
+
+@media (max-width: 1250px), (max-height: 680px) {
+ .album-grid-layout {
+  transform: translateY(-12px);
+ }
+
+ .album-right-col > .album-actions-group {
+  top: calc(100% + 5px);
+ }
+}
+
+/* ==========================================================================
+ ALBUM VIEW - VERTICAL METADATA HIERARCHY
+ Спокойная вертикальная структура альбома без badge-плашек
+ ========================================================================== */
+#album-overlay .album-meta-stack {
+ gap: 0;
+}
+
+#album-overlay .album-title-text {
+ margin: 0;
+ line-height: 1.12;
+}
+
+#album-overlay .album-artist-text {
+ margin-top: 6px;
+ margin-bottom: 14px;
+ line-height: 1.25;
+}
+
+#album-overlay .album-info-line {
+ margin: 0;
+ line-height: 1.55;
+}
+
+#album-overlay #album-meta-line1 {
+ color: var(--text-secondary);
+}
+
+#album-overlay #album-meta-line2 {
+ margin-top: 2px;
+ color: var(--text-muted);
+}
+
+#album-overlay #album-meta-line3 {
+ margin-top: 8px;
+ color: var(--text-muted);
+ opacity: 0.78;
+ font-size: clamp(10.5px, 1.15vh, 12px);
+}
+
+/* ==========================================================================
+ ALBUM VIEW - MISSING COVER ACTION
+ Локальное действие поиска обложки для релиза без изображения
+ ========================================================================== */
+.album-find-cover-btn {
+ align-self: center;
+ display: inline-flex;
+ align-items: center;
+ justify-content: center;
+ gap: 7px;
+ margin-top: -8px;
+ margin-bottom: 14px;
+ min-height: 30px;
+ padding: 5px 12px;
+ border: 1px solid var(--glass-border);
+ border-radius: var(--radius-full);
+ background: var(--glass-bg);
+ color: var(--text-secondary);
+ font-family: inherit;
+ font-size: 11.5px;
+ font-weight: 600;
+ cursor: pointer;
+ transition:
+ background 0.18s ease,
+ color 0.18s ease,
+ border-color 0.18s ease,
+ transform 0.18s ease;
+}
+
+.album-find-cover-btn:hover {
+ background: var(--glass-hover);
+ color: var(--album-accent);
+ border-color: var(--album-accent);
+ transform: translateY(-1px);
+}
+
+.album-find-cover-btn .icon {
+ width: 15px !important;
+ height: 15px !important;
+ fill: none !important;
+ stroke: currentColor !important;
+}
+
+/* ==========================================================================
+ ALBUM COVER INTERACTION
+ Индикация кликабельной обложки внутри Album View
+ ========================================================================== */
+
+#album-overlay .album-cover-box:not(.default-cover) {
+ cursor: pointer;
+ transition:
+ filter 0.2s ease,
+ transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+ box-shadow 0.2s ease;
+}
+
+#album-overlay .album-cover-box:not(.default-cover):hover {
+ filter: brightness(0.82);
+ transform: scale(0.995);
+}
+
+#album-overlay .album-cover-box:not(.default-cover):active {
+ filter: brightness(0.72);
+ transform: scale(0.985);
+}
+

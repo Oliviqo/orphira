@@ -1,0 +1,247 @@
+.titlebar {
+  -webkit-app-region: drag;
+  height: 58px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 20px 0 20px;
+  z-index: 100;
+  background: rgba(2, 3, 6, 0.3);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--glass-border);
+}
+.titlebar-left, .titlebar-controls {
+  width: 220px;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+.titlebar-controls {
+  justify-content: flex-end;
+  -webkit-app-region: no-drag;
+  gap: 4px;
+}
+.titlebar-title {
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  background: linear-gradient(135deg, #f8fafc 0%, #cbd5e1 60%, #818cf8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.window-btn {
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  transition: transform 0.15s ease, color 0.15s ease !important;
+  -webkit-app-region: no-drag;
+}
+.window-btn:hover,
+.window-btn-close:hover {
+  background: transparent !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+  color: #ffffff !important;
+  transform: scale(1.18) !important;
+}
+.window-btn:active,
+.window-btn-close:active {
+  transform: scale(0.92) !important;
+}
+.titlebar-center {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+.search-container {
+  -webkit-app-region: no-drag;
+  display: flex;
+  align-items: center;
+  background: rgba(8, 11, 20, 0.45);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-full);
+  padding: 6px 18px;
+  width: 340px;
+  gap: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: all 0.25s ease;
+  position: relative;
+}
+.search-container:focus-within {
+  border-color: rgba(129, 140, 248, 0.35);
+  box-shadow: 0 0 20px rgba(99, 102, 241, 0.15);
+  background: rgba(12, 16, 28, 0.65);
+}
+.search-input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #f8fafc;
+  width: 100%;
+  font-size: 13px;
+}
+.search-input::placeholder {
+  color: var(--text-muted);
+}
+body.is-window-fullscreen .titlebar-controls,
+body.is-window-fullscreen .fullscreen-window-controls {
+  display: none !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+.search-icon-box.hidden {
+  display: none !important;
+}
+.search-spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  border-top-color: var(--accent-pink);
+  border-radius: 50%;
+  animation: searchSpin 0.6s linear infinite;
+  flex-shrink: 0;
+  margin-right: 4px;
+}
+.search-spinner.hidden {
+  display: none !important;
+}
+@keyframes searchSpin {
+  to { transform: rotate(360deg); }
+}
+.search-clear-btn {
+  background: transparent !important;
+  border: none !important;
+  color: var(--text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px;
+  border-radius: 50%;
+  transition: color 0.15s ease, transform 0.15s ease;
+  flex-shrink: 0;
+}
+.search-clear-btn:hover {
+  color: var(--accent-pink) !important;
+  transform: scale(1.15);
+}
+.search-clear-btn.hidden {
+  display: none !important;
+}
+.search-history-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  right: 0;
+  background: rgba(10, 12, 22, 0.94);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  padding: 6px 0;
+  z-index: 9999;
+  max-height: 240px;
+  overflow-y: auto;
+}
+.search-history-dropdown.hidden {
+  display: none !important;
+}
+.search-history-header {
+  padding: 6px 14px 4px 14px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.search-history-clear-all {
+  background: transparent;
+  border: none;
+  color: var(--accent-pink);
+  font-size: 10px;
+  cursor: pointer;
+  opacity: 0.8;
+}
+.search-history-clear-all:hover {
+  opacity: 1;
+  text-decoration: underline;
+}
+.search-history-item {
+  padding: 8px 14px;
+  font-size: 12.5px;
+  color: var(--text-primary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.search-history-item:hover {
+  background: var(--glass-hover);
+  color: var(--accent-pink);
+}
+.search-history-item .remove-history-btn {
+  opacity: 0;
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 12px;
+  transition: opacity 0.15s ease, color 0.15s ease;
+}
+.search-history-item:hover .remove-history-btn {
+  opacity: 1;
+}
+.search-history-item .remove-history-btn:hover {
+  color: var(--danger-color);
+}
+
+.batch-titlebar-indicator {
+ display: flex;
+ align-items: center;
+ gap: 8px;
+ margin-left: 12px;
+ padding: 4px 10px;
+ background: rgba(129, 140, 248, 0.12);
+ border: 1px solid var(--accent-pink);
+ border-radius: var(--radius-full);
+ color: var(--accent-pink);
+ font-size: 11px;
+ font-weight: 700;
+ cursor: pointer;
+ transition: all 0.2s ease;
+ box-shadow: 0 0 10px var(--accent-glow);
+ flex-shrink: 0;
+}
+.batch-titlebar-indicator:hover {
+ background: rgba(129, 140, 248, 0.22);
+ transform: scale(1.05);
+}
+.batch-titlebar-indicator.hidden {
+ display: none !important;
+}
+.batch-indicator-spinner {
+ width: 12px;
+ height: 12px;
+ border: 2px solid rgba(255, 255, 255, 0.2);
+ border-top-color: var(--accent-pink);
+ border-radius: 50%;
+ animation: searchSpin 0.7s linear infinite;
+}
