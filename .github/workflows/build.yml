@@ -2,9 +2,11 @@ name: Build Orphira
 
 on:
   workflow_dispatch:
+
   push:
     tags:
       - "v*"
+
   pull_request:
     branches:
       - main
@@ -22,27 +24,27 @@ jobs:
         include:
           - name: Windows x64
             os: windows-latest
-            command: npm run dist:win
+            command: npm run dist:win -- --publish never
             artifact: Orphira-Windows-x64
 
           - name: macOS x64
             os: macos-15-intel
-            command: npm run dist:mac:x64
+            command: npm run dist:mac:x64 -- --publish never
             artifact: Orphira-macOS-x64
 
           - name: macOS ARM64
             os: macos-latest
-            command: npm run dist:mac:arm64
+            command: npm run dist:mac:arm64 -- --publish never
             artifact: Orphira-macOS-arm64
 
           - name: Linux x64
             os: ubuntu-latest
-            command: npm run dist:linux:x64
+            command: npm run dist:linux:x64 -- --publish never
             artifact: Orphira-Linux-x64
 
           - name: Linux ARM64
             os: ubuntu-24.04-arm
-            command: npm run dist:linux:arm64
+            command: npm run dist:linux:arm64 -- --publish never
             artifact: Orphira-Linux-arm64
 
     runs-on: ${{ matrix.os }}
